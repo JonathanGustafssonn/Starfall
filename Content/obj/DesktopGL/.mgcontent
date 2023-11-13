@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/BackGroundRun.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/CharacterCube.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/File.spritefont</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/VeryUglyGrassTiles.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File>Font.spritefont</File>
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
