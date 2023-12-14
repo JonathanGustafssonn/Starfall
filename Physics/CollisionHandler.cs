@@ -90,11 +90,35 @@ namespace Starfall.Physics
             }
         }
 
+        public bool PlatformCollisionCheck(Player actor, Objects.BoundingBox solid)
+        {
+             bool isCollidingPlatform =
+                actor.Position.Y + actor.Size.Y  >= solid.Y &&
+                actor.Position.Y + actor.Size.Y - 1f <= solid.Y + solid.Height &&
+                actor.Position.X + actor.Size.Y -1f <= solid.X + solid.Width &&
+                actor.Position.X + actor.Size.X + actor.Size.Y -1f >= solid.X;
+            
+
+            if(isCollidingPlatform) return true;
+        }
+
+        public void PlatformCollision(Player actor, List<Objects.BoundingBox> solid)
+        {
+            if(PlatformCollisionCheck(actor, solid[i]))
+            {
+                if(actor.Velocity.Y > 0 )
+                }
+                    actor.Velocity.Y = 0;
+                    actor.Position.Y = solid[i].Y + 0.01f;
+                }
+            }
+        }
+
         #endregion
 
         #region Sensors
 
-        public void checkforGround(Player actor, List<Objects.BoundingBox> Solid)
+        public void checkforGround(Player actor, Objects.BoundingBox solid)
         {
             actor.isGrounded = false;
             for(int i = 0; i < Solid.Count; i++)
