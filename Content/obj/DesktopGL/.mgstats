@@ -1,1 +1,6 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/MSI/source/repos/Starfall/Starfall/Content/BackGroundRun.png","C:/Users/MSI/source/repos/Starfall/Starfall/Content/bin/DesktopGL/BackGroundRun.xnb","TextureProcessor","Texture2DContent",6233,1536085,0,1500808
+"C:/Users/MSI/source/repos/Starfall/Starfall/Content/CharacterCube.png","C:/Users/MSI/source/repos/Starfall/Starfall/Content/bin/DesktopGL/CharacterCube.xnb","TextureProcessor","Texture2DContent",1744,8277,0,0015666
+"C:/Users/MSI/source/repos/Starfall/Starfall/Content/File.spritefont","C:/Users/MSI/source/repos/Starfall/Starfall/Content/bin/DesktopGL/Font.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21535,0,0867988
+"C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx","C:\Users\MSI\source\repos\Starfall\Starfall\Content\bin\DesktopGL\Levels/Actual Levels/Level-1.tmx","CopyItem","File",4079,4079,0,0010634
+"C:/Users/MSI/source/repos/Starfall/Starfall/Content/VeryUglyGrassTiles.png","C:/Users/MSI/source/repos/Starfall/Starfall/Content/bin/DesktopGL/VeryUglyGrassTiles.xnb","TextureProcessor","Texture2DContent",3425,24661,0,0013753

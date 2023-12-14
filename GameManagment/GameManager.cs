@@ -36,7 +36,7 @@ namespace Starfall.GameManagment
 
             font = Global.Content.Load<SpriteFont>("Font");
 
-            player = new(Global.Content.Load<Texture2D>("CharacterCube"), new Vector2(0,0), new Vector2(32, 64),new Vector2(0,0));
+            player = new(Global.Content.Load<Texture2D>("CharacterCube"), new Vector2(45,150), new Vector2(32, 64),new Vector2(0,0));
             player.Hitbox = new Objects.BoundingBox(player.Position.X,player.Position.Y,player.Size.X,player.Size.Y);
             Background = Global.Content.Load<Texture2D>("BackGroundRun");
             collisionHandler = new CollisionHandler();
@@ -63,24 +63,10 @@ namespace Starfall.GameManagment
         }
         public void Update()
         {
-            InputManager.Update();
-            player.Update();
-
-           
-
-            
-
-            
-
-            collisionHandler.CollisionHandling(player, boundingBoxes);
-
-
-
-
-
-
-
-            gameCamera.CalculateView(Global.graphicsDevice.Viewport,player, Worldsize);
+            gameCamera.CalculateView(player, Worldsize);
+            InputManager.Update(player);
+            player.Update();                    
+            collisionHandler.CollisionHandling(player, boundingBoxes);         
         }
 
         public void Draw(Texture2D rectTexture)
@@ -94,10 +80,17 @@ namespace Starfall.GameManagment
             //Global.SpriteBatch.Draw(rectTexture, new Rectangle((int)player.Position.X, (int)(player.Position.Y + player.Size.Y), (int)player.Size.X, 6), Color.Red);
             foreach(Objects.BoundingBox box in boundingBoxes)
             {
-              //  Global.SpriteBatch.Draw(rectTexture, new Rectangle((int)box.X, (int)box.Y, (int)box.Width, (int)box.Height), Color.Purple);
-                Global.SpriteBatch.DrawString(font, "Are we colliding?" + player.isGrounded + "", Vector2.Zero, Color.Red);
+                Global.SpriteBatch.DrawString(font, "Velocity Y" + player.Velocity.Y+ "", player.Position + new Vector2(10,10), Color.Red);
+
+                Global.SpriteBatch.DrawString(font, "Velocity X" + player.Velocity.X + "", player.Position + new Vector2(20, 20), Color.Yellow);
+
+                Global.SpriteBatch.DrawString(font, "WallLeft" + player.touchWallLeft + "", new Vector2(0, 80), Color.Red);
+
+                Global.SpriteBatch.DrawString(font, "WallRight" + player.touchWallRight + "", new Vector2(0, 100), Color.Red);
+
+
             }
-            
+
 
             Global.SpriteBatch.End();
         }

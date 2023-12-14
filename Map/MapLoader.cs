@@ -36,7 +36,7 @@ namespace Starfall.Map
                     int gid = Map.Layers[i].Tiles[j].Gid;
                     if (gid == 0)
                     {
-
+                        
                     }
                     else
                     {
@@ -48,7 +48,9 @@ namespace Starfall.Map
                         Objects.BoundingBox tileSetBox = new Objects.BoundingBox(TileWidth * column, TileHeight * row, TileWidth, TileHeight);
 
 
-                        Global.SpriteBatch.Draw(Tileset, new Rectangle((int)X, (int)Y, (int)TileWidth, (int)TileHeight ),new Rectangle((int)tileSetBox.X, (int)tileSetBox.Y, (int)tileSetBox.Width, (int)tileSetBox.Height), Color.White);
+                        //Global.SpriteBatch.Draw(Tileset, new Rectangle((int)X, (int)Y, (int)TileWidth, (int)TileHeight ),new Rectangle((int)tileSetBox.X, (int)tileSetBox.Y, (int)tileSetBox.Width, (int)tileSetBox.Height), Color.White);
+                        Global.SpriteBatch.Draw(Tileset, new Vector2(X,Y), new Rectangle((int)tileSetBox.X, (int)tileSetBox.Y, (int)tileSetBox.Width, (int)tileSetBox.Height), Color.White);
+                        // Global.SpriteBatch.Draw(Background, new Vector2(player.Hitbox.X, player.Hitbox.Y) ,null, Color.Green,0f, Vector2.Zero, new Vector2(player.Size.X / Background.Width,player.Size.Y / Background.Height), SpriteEffects.None, 0f);
                     }
                 }
             }

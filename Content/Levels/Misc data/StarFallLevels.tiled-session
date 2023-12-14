@@ -3,11 +3,22 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "Alla filer (*)",
     "fileStates": {
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 568,
+                "y": 1194
+            }
+        },
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx#VeryUglyGrassTiles": {
+            "scaleInDock": 1.5
+        }
     },
     "last.imagePath": "C:/Users/MSI/source/repos/Starfall/Starfall/Content",
     "map.lastUsedFormat": "tmx",
@@ -15,9 +26,11 @@
     "map.tileWidth": 16,
     "map.width": 60,
     "openFiles": [
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx"
     ],
     "project": "StarFallLevels.tiled-project",
     "recentFiles": [
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {

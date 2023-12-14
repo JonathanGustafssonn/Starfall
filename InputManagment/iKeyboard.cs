@@ -17,7 +17,8 @@ namespace Starfall.InputManagment
 
         static KeyboardState previousState;
 
-
+        private bool jumpPressedOnce = false;
+        
         public static KeyboardState GetState()
         {
             previousState = currentState;
@@ -25,12 +26,12 @@ namespace Starfall.InputManagment
             return currentState;
         }
 
-        public static bool IsKeyDown(Keys key)
+        public static bool IsPressed(Keys key)
         {
             return currentState.IsKeyDown(key);
-        }
+        } 
 
-        public static bool PressedOnce(Keys key)
+        public static bool IsPressedOnce(Keys key)
         {
             return currentState.IsKeyDown(key) && !previousState.IsKeyDown(key);
         }

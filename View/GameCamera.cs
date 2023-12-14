@@ -15,21 +15,25 @@ namespace Starfall.View
     {
         public Matrix gameView;
 
-        public void CalculateView(Viewport viewport,Player player, Vector2 Worldsize )
+        public void CalculateView(Player player, Vector2 Worldsize )
         {
+            /*
             float ScaleX = viewport.Width / Worldsize.X;
             float ScaleY = viewport.Height / Worldsize.Y;   
             float Scale = Math.Min( ScaleX, ScaleY );
+            */
+
+            //float transformedTargetX = player.Position.X * Scale;
+            //float transformedTargetY = player.Position.Y * Scale;
 
 
+             float viewX = (Global.GameWindow.X / 2) - player.Position.X;
+             float viewY = (Global.GameWindow.Y / 2) - player.Position.Y;
+            //  float viewX = -(0) / 2;
+            //  float viewY = -(0) / 2;
 
-            // float viewX = (viewport.Width / 2) - player.Position.X * Scale;
-            // float viewY = (viewport.Height / 2) - player.Position.Y * Scale;
-            float viewX = -(0) / 2;
-            float viewY = -(0) / 2;
 
-
-            gameView = Matrix.CreateTranslation(viewX, viewY, 0f) * Matrix.CreateScale(Scale,Scale,1);
+            gameView = Matrix.CreateTranslation(viewX, viewY, 0); //* Matrix.CreateScale(Scale,Scale,1);
 
         }
     }

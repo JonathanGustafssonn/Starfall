@@ -15,6 +15,8 @@ namespace Starfall.GameManagment
         public static ContentManager Content { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
         public static GraphicsDevice graphicsDevice { get; set; }
+
+        public static Point GameWindow {  get; set; }
         
 
         public static void Update(GameTime gameTime)

@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Starfall.GameManagment;
+using Starfall.InputManagment;
 using Starfall.Objects;
 using System;
 using System.Collections.Generic;
@@ -12,6 +15,7 @@ namespace Starfall.Physics
 {
     public class CollisionHandler
     {
+       
         #region Collision Functions
         public bool areWeInCollision = false;
 
@@ -117,15 +121,77 @@ namespace Starfall.Physics
             return false;
         }
 
+        public bool WallCheckRight(Player actor, Objects.BoundingBox solid)
+        {
+            bool wallCheckRight = 
+                actor.Position.Y + 1 + actor.Size.Y - 1 >= solid.Y &&
+                actor.Position.Y + 1 <= solid.Y + solid.Height &&
+                actor.Position.X + actor.Size.X <= solid.X + solid.Width &&
+                actor.Position.X + actor.Size.X + 2f >= solid.X;
+            
+            if(wallCheckRight)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool WallCheckLeft(Player actor, Objects.BoundingBox solid)
+        {
+            bool wallCheckLeft =
+                actor.Position.Y + 1 + actor.Size.Y - 1 >= solid.Y &&
+                actor.Position.Y + 1 <= solid.Y + solid.Height &&
+                actor.Position.X - 2f <= solid.X + solid.Width &&
+                actor.Position.X + 2f >= solid.X;
+
+            if(wallCheckLeft)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        public void CheckForWalls(Player actor, List<Objects.BoundingBox> Solid)
+        {
+            actor.touchWallRight = false;
+            actor.touchWallLeft = false;
+
+            if (actor.isGrounded == false)
+            {
+                for (int i = 0; i < Solid.Count; i++)
+                {
+                    if(WallCheckLeft(actor, Solid[i]))
+                    {
+                        actor.touchWallLeft = true;
+                    }
+                    else if(WallCheckRight(actor, Solid[i]))
+                    {
+                        actor.touchWallRight = true;
+                    }
+                }
+            }
+            
+        }
+
         #endregion
 
         public void Gravity(Player actor)
         {
-            
-            
-                actor.Velocity.Y += 10f * Global.Time;
-                
-            
+
+            // lower gravity at apex of jump for more controll specificly between 0.1 and -0,1 of velocity 
+
+
+            if (actor.Velocity.Y >= 9f) actor.Velocity.Y = 9f;
+            else if (actor.Velocity.Y <= 0.1f && actor.Velocity.Y >= -0.1f && !actor.isGrounded) actor.Velocity.Y += actor.gravity / 3 * Global.Time;
+            //else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0) actor.Velocity.Y += actor.gravity / 4 * Global.Time;
+            else if (actor.Velocity.Y > 0) actor.Velocity.Y += actor.gravity * 1.5f * Global.Time; //check if player is moving downwards and if that is the case make gravity larger else normal gravity 
+            else actor.Velocity.Y += actor.gravity * Global.Time;
+
+
+
+
+
             actor.Position.Y += actor.Velocity.Y;
 
         }
@@ -133,12 +199,13 @@ namespace Starfall.Physics
         // CollisionHandling takes the Collision functions and applies them
         public void CollisionHandling(Player actor, List<Objects.BoundingBox> solid)
         {
-            checkforGround(actor, solid);
+            
             HorizontalCollision(actor, solid);
             Gravity(actor);
             VerticalCollision(actor, solid);
-            
-            
+            checkforGround(actor, solid);
+            CheckForWalls(actor, solid);
+
         }
 
     }
