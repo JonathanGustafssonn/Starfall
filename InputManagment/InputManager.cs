@@ -54,22 +54,42 @@ namespace Starfall.InputManagment
 
             if (iKeyboard.IsPressed(Keys.A))
             {
+                // First implementation of Movement in the Negative X axis
                 if (player.Velocity.X <= -player.speed) player.Velocity.X = -player.speed;
                 else if (player.Velocity.X > 0) player.Velocity.X -= 25f * Global.Time;
                 else if (player.Velocity.Y <= 0.5f && player.Velocity.Y >= -0.5f && !player.isGrounded) player.Velocity.X -= 25f * Global.Time;
                 else player.Velocity.X -= 15f * Global.Time;
+
+                // Implementation with Lerping (Not sure if Lerping is the way to go or not)
+                // 15f borde byttas mot variabel, För Speed som Vector2 (X,Y) för att lättare hantera hastigheter   
+
+
+                if(player.Velocity.Y <= 0.5f && player.Velocity.Y >= -05f && !player.isGrounded)
+                {
+                    LerpVariabel = 25f;
+                }
+                else LerpVariabel = 15f;
+                    
+                MathHelper.Lerp(0 , -4.5f , -15f * Global.Time)
             }
 
             if (iKeyboard.IsPressed(Keys.D))
             {
-
-                
-                
+                //First implementatition of Movement in the Positive X axis
                 if (player.Velocity.X >= player.speed) player.Velocity.X = player.speed;
                 else if (player.Velocity.X < 0) player.Velocity.X += 25f * Global.Time;
                 else if(player.Velocity.Y <= 0.5f && player.Velocity.Y >= -0.5f && !player.isGrounded) player.Velocity.X += 25f * Global.Time;
                 else player.Velocity.X += 15f * Global.Time;
+
+                // Implementation with Lerping (Not sure if Lerping is the way to go or not)
+
+                if(player.Velocity.Y <= 0.5f && player.Velocity.Y >= -05f && !player.isGrounded)
+                {
+                    LerpVariabel = 25f;
+                }
+                else LerpVariabel = 15f;
                 
+                MathHelper.Lerp(0 , 4.5f , LerpVariabel * Global.Time)
             }
 
             
