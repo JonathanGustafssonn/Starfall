@@ -26,7 +26,7 @@ namespace Starfall.Objects
         {
         }
 
-        public void Update()a
+        public void Update()
         {
             
             #region Player Controller
