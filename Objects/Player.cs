@@ -21,7 +21,8 @@ namespace Starfall.Objects
         public float gravity = 15f;
         public bool jumpButtonDown = false;
         public bool normalJump = false;
-        public bool isJumping = false;
+        public bool jumpInputBuffer = false;
+        public float jumpBufferWindow = 0.2f;
         public Player(Texture2D texture, Vector2 position, Vector2 size, Vector2 velocity) : base(texture,position,size,velocity)
         {
         }
