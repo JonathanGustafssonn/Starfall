@@ -15,8 +15,12 @@ namespace Starfall.InputManagment
     //  InputManager handles all player inputs accordingly the result of said inputs are handled in different classes   //
     //==================================================================================================================//
 
-    //to finish lerp method add logic related to jumping and make it work similar to original method.
-    // probably better to use Max,Min and Abs methods instead we will see.
+    //Add dashing logic
+    /Add Jumpbuffering
+    /Add coyoteTime
+    /Add squizch beyond wall like celeste
+    //State Machine prob not here though :/
+    //edge detection :>)
 
     public static class InputManager
     {
@@ -28,8 +32,7 @@ namespace Starfall.InputManagment
             float LerpVariabel;
 
 
-            
-
+        
             if (iKeyboard.IsPressedOnce(Keys.Space) && player.isGrounded)
             {
                     player.isGrounded = false;
