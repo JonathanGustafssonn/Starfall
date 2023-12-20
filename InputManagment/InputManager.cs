@@ -15,6 +15,9 @@ namespace Starfall.InputManagment
     //  InputManager handles all player inputs accordingly the result of said inputs are handled in different classes   //
     //==================================================================================================================//
 
+    //to finish lerp method add logic related to jumping and make it work similar to original method.
+    // probably better to use Max,Min and Abs methods instead we will see.
+
     public static class InputManager
     {
         
@@ -71,7 +74,7 @@ namespace Starfall.InputManagment
                 }
                 else LerpVariabel = 15f;
 
-                MathHelper.Lerp(0, -4.5f, -15f * Global.Time);
+                player.Velocity.X = MathHelper.Lerp(0, -4.5f, -15f * Global.Time);
                 */
             }
             
@@ -91,9 +94,9 @@ namespace Starfall.InputManagment
                 }
                 else LerpVariabel = 15f;
 
-                MathHelper.Lerp(0, 4.5f, LerpVariabel * Global.Time);
+                player.Velocity.X = MathHelper.Lerp(0, 4.5f, LerpVariabel * Global.Time);
                 */
-                }
+            }
                 
 
 
