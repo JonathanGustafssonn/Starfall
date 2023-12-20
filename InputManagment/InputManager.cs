@@ -22,10 +22,10 @@ namespace Starfall.InputManagment
         public static void Update(Player player)
         {
             iKeyboard.GetState();
+            float LerpVariabel;
 
 
             
-
 
             if (iKeyboard.IsPressedOnce(Keys.Space) && player.isGrounded)
             {
@@ -52,6 +52,7 @@ namespace Starfall.InputManagment
             // Should probably check out air speed we want to make the character generally more controllable in the air so should tweak values and remove cap of velocity in air i think.
             // Also add comments explaining everything ffs
 
+            
             if (iKeyboard.IsPressed(Keys.A))
             {
                 // First implementation of Movement in the Negative X axis
@@ -63,16 +64,17 @@ namespace Starfall.InputManagment
                 // Implementation with Lerping (Not sure if Lerping is the way to go or not)
                 // 15f borde byttas mot variabel, För Speed som Vector2 (X,Y) för att lättare hantera hastigheter   
 
-
+                /*
                 if(player.Velocity.Y <= 0.5f && player.Velocity.Y >= -05f && !player.isGrounded)
                 {
                     LerpVariabel = 25f;
                 }
                 else LerpVariabel = 15f;
-                    
-                MathHelper.Lerp(0 , -4.5f , -15f * Global.Time)
-            }
 
+                MathHelper.Lerp(0, -4.5f, -15f * Global.Time);
+                */
+            }
+            
             if (iKeyboard.IsPressed(Keys.D))
             {
                 //First implementatition of Movement in the Positive X axis
@@ -82,17 +84,17 @@ namespace Starfall.InputManagment
                 else player.Velocity.X += 15f * Global.Time;
 
                 // Implementation with Lerping (Not sure if Lerping is the way to go or not)
-
+                /*
                 if(player.Velocity.Y <= 0.5f && player.Velocity.Y >= -05f && !player.isGrounded)
                 {
                     LerpVariabel = 25f;
                 }
                 else LerpVariabel = 15f;
-                
-                MathHelper.Lerp(0 , 4.5f , LerpVariabel * Global.Time)
-            }
 
-            
+                MathHelper.Lerp(0, 4.5f, LerpVariabel * Global.Time);
+                */
+                }
+                
 
 
 
@@ -114,7 +116,7 @@ namespace Starfall.InputManagment
                     player.Velocity.X = 0;
                 }
             }
-
+            
 
         }
 
