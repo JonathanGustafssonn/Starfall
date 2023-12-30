@@ -15,6 +15,13 @@ namespace Starfall.InputManagment
     //  InputManager handles all player inputs accordingly the result of said inputs are handled in different classes   //
     //==================================================================================================================//
 
+    //Add dashing logic
+    /Add Jumpbuffering
+    /Add coyoteTime
+    /Add squizch beyond wall like celeste
+    //State Machine prob not here though :/
+    //edge detection :>)
+
     public static class InputManager
     {
         
@@ -25,8 +32,7 @@ namespace Starfall.InputManagment
             float LerpVariabel;
 
 
-            
-
+        
             if (iKeyboard.IsPressedOnce(Keys.Space) && player.isGrounded)
             {
                     player.isGrounded = false;
@@ -71,7 +77,7 @@ namespace Starfall.InputManagment
                 }
                 else LerpVariabel = 15f;
 
-                MathHelper.Lerp(0, -4.5f, -15f * Global.Time);
+                player.Velocity.X = MathHelper.Lerp(0, -4.5f, -15f * Global.Time);
                 */
             }
             
@@ -91,9 +97,9 @@ namespace Starfall.InputManagment
                 }
                 else LerpVariabel = 15f;
 
-                MathHelper.Lerp(0, 4.5f, LerpVariabel * Global.Time);
+                player.Velocity.X = MathHelper.Lerp(0, 4.5f, LerpVariabel * Global.Time);
                 */
-                }
+            }
                 
 
             

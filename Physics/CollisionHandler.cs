@@ -181,14 +181,24 @@ namespace Starfall.Physics
         public void Gravity(Player actor)
         {
 
-            // lower gravity at apex of jump for more controll specificly between 0.1 and -0,1 of velocity 
+            // lower gravity at apex of jump for more controll specificly between 0.1 and -0.1 of velocity 
 
-
+            
+            //Set max fall speed to 9f
             if (actor.Velocity.Y >= 9f) actor.Velocity.Y = 9f;
             else if (actor.Velocity.Y <= 0.1f && actor.Velocity.Y >= -0.1f && !actor.isGrounded) actor.Velocity.Y += actor.gravity / 3 * Global.Time;
-            //else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0) actor.Velocity.Y += actor.gravity / 4 * Global.Time;
+            else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.D) && actor.Velocity.Y > 0) actor.Velocity.Y += actor.gravity / 4 * Global.Time;
             else if (actor.Velocity.Y > 0) actor.Velocity.Y += actor.gravity * 1.5f * Global.Time; //check if player is moving downwards and if that is the case make gravity larger else normal gravity 
             else actor.Velocity.Y += actor.gravity * Global.Time;
+
+
+            //Lerp Gravity
+            if(actor.Velocity.Y >= 9f) actor.Velocity.Y = 9f;
+            else if(actor.Velocity.Y <= 0.1f && actor.Velocity.Y >= -0.1f && !actor.isGrounded) Actor.Velocity.Y = MathHelper.Lerp(Actor.Velocity.Y, 9f,actor.gravity / 3 * Global.Time);
+            else if(actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.D) && actor.Velocity.Y > 0) actor.Velocity.Y = MathHelper.Lerp(actor.Velocity.Y,3f,actor.gravity / 2 * Global.Time)
+            else if(actor.Velocity.Y > 0) actor.Velocity.Y = MathHelper.Lerp(Actor.Velocity.Y, 9f , actor.gravity * 1.5f * Global.Time);
+            else actor.Velocity.Y = MathHelper.Lerp(actor.Velocity.Y, 9f, actor.gravity * Global.Time);
+            
 
 
 
