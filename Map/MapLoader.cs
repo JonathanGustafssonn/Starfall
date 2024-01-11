@@ -13,11 +13,11 @@ namespace Starfall.Map
 {
     public class MapLoader
     {
-        TmxMap Map;
+        public TmxMap Map;
         Texture2D Tileset;
-        int TilesetTilesWide;
-        int TileWidth;
-        int TileHeight;  
+        public int TilesetTilesWide;
+        public int TileWidth;
+        public int TileHeight;
         
         public MapLoader(TmxMap map, Texture2D tileset, int tilesetTilesWide, int tileWidth, int tileHeight) 
         {
@@ -25,7 +25,7 @@ namespace Starfall.Map
             this.Tileset = tileset;
             this.TilesetTilesWide = tilesetTilesWide;
             this.TileWidth = tileWidth;
-            this.TileHeight = tileHeight;   
+            this.TileHeight = tileHeight;
         }
         public void Draw()
         {

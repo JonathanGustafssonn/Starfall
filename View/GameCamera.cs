@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Starfall.GameManagment;
+using Starfall.Map;
 using Starfall.Objects;
 using System;
 using System.Collections.Generic;
@@ -15,25 +16,30 @@ namespace Starfall.View
     {
         public Matrix gameView;
 
-        public void CalculateView(Player player, Vector2 Worldsize )
+        public void CalculateView(Player player, Vector2 Worldsize, MapLoader map)
         {
-            /*
-            float ScaleX = viewport.Width / Worldsize.X;
-            float ScaleY = viewport.Height / Worldsize.Y;   
-            float Scale = Math.Min( ScaleX, ScaleY );
-            */
+            //Calculate appropriate Scale factor based on the ration of the game window size to the size of the world
+            float ScaleX = Global.GameWindow.X / Worldsize.X;
+            float ScaleY = Global.GameWindow.Y / Worldsize.Y;
+            float Scale = Math.Min(ScaleX, ScaleY);
 
-            //float transformedTargetX = player.Position.X * Scale;
-            //float transformedTargetY = player.Position.Y * Scale;
+            // Calculate the position of the camera based on the position of the player
+            float targetPositionX = -player.Position.X * 3 + (Global.GameWindow.X / 2);
+            float targetPositionY = -player.Position.Y * 3 + (Global.GameWindow.Y / 2);
 
-
-             float viewX = (Global.GameWindow.X / 2) - player.Position.X;
-             float viewY = (Global.GameWindow.Y / 2) - player.Position.Y;
-            //  float viewX = -(0) / 2;
-            //  float viewY = -(0) / 2;
+            //clamp values as to not go beyond border of the map
+            float clampedTargetPositionX = MathHelper.Clamp(targetPositionX, -map.Map.Width * map.TileWidth * 3 + (Global.GameWindow.X ), 0);
+            float clampedTargetPositionY = MathHelper.Clamp(targetPositionY, -map.Map.Height * map.TileHeight * 3 + (Global.GameWindow.Y ), 0);
 
 
-            gameView = Matrix.CreateTranslation(viewX, viewY, 0); //* Matrix.CreateScale(Scale,Scale,1);
+
+
+
+
+
+
+            //gameView = Matrix.CreateScale(3, 3, 1) * Matrix.CreateTranslation(targetPositionX, targetPositionY, 0);
+            gameView = Matrix.CreateScale(3, 3, 1) * Matrix.CreateTranslation(clampedTargetPositionX, clampedTargetPositionY, 0);
 
         }
     }

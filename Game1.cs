@@ -21,9 +21,9 @@ namespace Starfall
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            //_graphics.PreferredBackBufferWidth = 640;
-            //_graphics.PreferredBackBufferHeight = 360;
-            _graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.IsFullScreen = true;
             Window.AllowUserResizing = true;
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Starfall.InputManagment;
@@ -26,6 +27,7 @@ namespace Starfall.GameManagment
         private readonly Player player;
         private readonly CollisionHandler collisionHandler;
         private readonly Texture2D Background;
+        private readonly SoundEffect effect;
 
         private readonly List<Objects.BoundingBox> boundingBoxes;
         public GameManager()
@@ -35,12 +37,13 @@ namespace Starfall.GameManagment
             Worldsize = new Vector2(640,360);
 
             font = Global.Content.Load<SpriteFont>("Font");
-
-            player = new(Global.Content.Load<Texture2D>("CharacterCube"), new Vector2(45,150), new Vector2(32, 64),new Vector2(0,0));
+            // 15 41
+            player = new(Global.Content.Load<Texture2D>("PlayerAlt"), new Vector2(45,150), new Vector2(15, 41),new Vector2(0,0));
             player.Hitbox = new Objects.BoundingBox(player.Position.X,player.Position.Y,player.Size.X,player.Size.Y);
             Background = Global.Content.Load<Texture2D>("BackGroundRun");
             collisionHandler = new CollisionHandler();
             gameCamera = new GameCamera();
+            effect = Global.Content.Load<SoundEffect>("jump");
 
             map = new TmxMap("Content/Levels/Actual Levels/Level-1.tmx");
             var Tileset = Global.Content.Load<Texture2D>("" + map.Tilesets[0].Name.ToString());
@@ -63,8 +66,8 @@ namespace Starfall.GameManagment
         }
         public void Update()
         {
-            gameCamera.CalculateView(player, Worldsize);
-            InputManager.Update(player);
+            gameCamera.CalculateView(player, Worldsize, maploader);
+            InputManager.Update(player, effect);
             player.Update();                    
             collisionHandler.CollisionHandling(player, boundingBoxes);         
         }

@@ -7,12 +7,18 @@
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/BackGroundRun.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/CharacterCube.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/File.spritefont</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/jump.wav</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Player.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerAlt.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/VeryUglyGrassTiles.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>Font.spritefont</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

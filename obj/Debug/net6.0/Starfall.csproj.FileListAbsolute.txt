@@ -29,3 +29,6 @@ C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\VeryUglyGra
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level-1.tmx
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\TiledSharp.dll
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Font.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\jump.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Player.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerAlt.xnb

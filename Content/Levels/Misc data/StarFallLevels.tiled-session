@@ -8,16 +8,19 @@
     ],
     "file.lastUsedOpenFilter": "Alla filer (*)",
     "fileStates": {
+        "": {
+            "scaleInDock": 1.5
+        },
         "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx": {
-            "scale": 1,
-            "selectedLayer": 1,
+            "scale": 0.5,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 568,
-                "y": 1194
+                "x": 1002,
+                "y": 498
             }
         },
         "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx#VeryUglyGrassTiles": {
-            "scaleInDock": 1.5
+            "scaleInDock": 2
         }
     },
     "last.imagePath": "C:/Users/MSI/source/repos/Starfall/Starfall/Content",

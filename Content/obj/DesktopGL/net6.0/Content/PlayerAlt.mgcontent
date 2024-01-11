@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/MSI/source/repos/Starfall/Starfall/Content/BackGroundRun.png</SourceFile>
-  <SourceTime>2023-08-01T13:36:31.8026331+02:00</SourceTime>
-  <DestFile>C:/Users/MSI/source/repos/Starfall/Starfall/Content/bin/DesktopGL/BackGroundRun.xnb</DestFile>
-  <DestTime>2024-01-10T22:28:29.3387662+01:00</DestTime>
+  <SourceFile>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerAlt.png</SourceFile>
+  <SourceTime>2024-01-04T14:24:03.1387085+01:00</SourceTime>
+  <DestFile>C:/Users/MSI/source/repos/Starfall/Starfall/Content/bin/DesktopGL/Content/PlayerAlt.xnb</DestFile>
+  <DestTime>2024-01-04T14:24:20.4731755+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
