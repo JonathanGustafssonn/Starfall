@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Starfall.AnimationManagment;
 using Starfall.InputManagment;
 using Starfall.Map;
 using Starfall.Objects;
@@ -27,25 +28,33 @@ namespace Starfall.GameManagment
         private readonly Player player;
         private readonly CollisionHandler collisionHandler;
         private readonly Texture2D Background;
-        private readonly SoundEffect effect;
-
+        public SoundEffect effect;
         private readonly List<Objects.BoundingBox> boundingBoxes;
+        private readonly List<Objects.BoundingBox> Spikes;
+        private readonly List<Objects.BoundingBox> Platform;
+
+        
+        
+
+
         public GameManager()
         {
 
             #region Initialize
             Worldsize = new Vector2(640,360);
-
+            effect = Global.Content.Load<SoundEffect>("jump");
             font = Global.Content.Load<SpriteFont>("Font");
             // 15 41
-            player = new(Global.Content.Load<Texture2D>("PlayerAlt"), new Vector2(45,150), new Vector2(15, 41),new Vector2(0,0));
+            player = new(Global.Content.Load<Texture2D>("Player"), new Vector2(165,150), new Vector2(15, 40),new Vector2(0,0));
             player.Hitbox = new Objects.BoundingBox(player.Position.X,player.Position.Y,player.Size.X,player.Size.Y);
             Background = Global.Content.Load<Texture2D>("BackGroundRun");
             collisionHandler = new CollisionHandler();
             gameCamera = new GameCamera();
-            effect = Global.Content.Load<SoundEffect>("jump");
 
-            map = new TmxMap("Content/Levels/Actual Levels/Level-1.tmx");
+
+            
+
+            map = new TmxMap("Content/Levels/Actual Levels/Level2.tmx");
             var Tileset = Global.Content.Load<Texture2D>("" + map.Tilesets[0].Name.ToString());
             var tileWidth = map.Tilesets[0].TileWidth;
             var tileHeight = map.Tilesets[0].TileHeight;
@@ -54,29 +63,49 @@ namespace Starfall.GameManagment
 
             //initialize Map BoundingBoxes
             boundingBoxes = new List<Objects.BoundingBox>();
+            Spikes = new List<Objects.BoundingBox>();
+            Platform = new List<Objects.BoundingBox>();
 
-            for(int i = 0; i < map.ObjectGroups["Ground"].Objects.Count; i++)
+            for (int i = 0; i < map.ObjectGroups["Ground"].Objects.Count; i++)
             {
                 TmxObject o = map.ObjectGroups["Ground"].Objects[i];
 
                 boundingBoxes.Add(new Objects.BoundingBox((float)o.X, (float)o.Y, (float)o.Width, (float)o.Height));
+            }
+
+            //Initialize Map Spike Boxes
+            for (int i = 0; i < map.ObjectGroups["Spikes"].Objects.Count; i++)
+            {
+                TmxObject spike = map.ObjectGroups["Spikes"].Objects[i];
+
+                Spikes.Add(new Objects.BoundingBox((float)spike.X, (float)spike.Y, (float)spike.Width, (float)spike.Height));
+            }
+
+            //Initialize Platforms
+            for (int i = 0; i < map.ObjectGroups["Platform"].Objects.Count; i++)
+            {
+                TmxObject platform = map.ObjectGroups["Platform"].Objects[i];
+
+                Platform.Add(new Objects.BoundingBox((float)platform.X, (float)platform.Y, (float)platform.Width, (float)platform.Height));
             }
             #endregion
 
         }
         public void Update()
         {
+            
             gameCamera.CalculateView(player, Worldsize, maploader);
             InputManager.Update(player, effect);
-            player.Update();                    
-            collisionHandler.CollisionHandling(player, boundingBoxes);         
+            player.Update(effect);                    
+            collisionHandler.CollisionHandling(player, boundingBoxes, Spikes, Platform);         
         }
 
-        public void Draw(Texture2D rectTexture)
+        public void Draw(Texture2D rectTexture, GameTime gameTime)
         {
             Global.SpriteBatch.Begin(blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp,transformMatrix: gameCamera.gameView);
 
             maploader.Draw();
+
            // Global.SpriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
             player.Draw();
             // Global.SpriteBatch.Draw(Background, new Vector2(player.Hitbox.X, player.Hitbox.Y) ,null, Color.Green,0f, Vector2.Zero, new Vector2(player.Size.X / Background.Width,player.Size.Y / Background.Height), SpriteEffects.None, 0f);
@@ -85,7 +114,7 @@ namespace Starfall.GameManagment
             {
                 Global.SpriteBatch.DrawString(font, "Velocity Y" + player.Velocity.Y+ "", player.Position + new Vector2(10,10), Color.Red);
 
-                Global.SpriteBatch.DrawString(font, "Velocity X" + player.Velocity.X + "", player.Position + new Vector2(20, 20), Color.Yellow);
+               Global.SpriteBatch.DrawString(font, "Velocity X  " + player.Velocity.X + "", player.Position + new Vector2(20, 20), Color.Yellow);
 
                 Global.SpriteBatch.DrawString(font, "WallLeft" + player.touchWallLeft + "", new Vector2(0, 80), Color.Red);
 

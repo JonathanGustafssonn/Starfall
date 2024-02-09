@@ -7,6 +7,7 @@ using Starfall.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,6 @@ namespace Starfall.Physics
 {
     public class CollisionHandler
     {
-      
         #region Collision Functions
         public bool areWeInCollision = false;
 
@@ -26,10 +26,25 @@ namespace Starfall.Physics
 
         //Problem Log issue with resolution of collision because of inconsistent position of Player.hitbox :) hitboxes and sensors shouldnt be made as separate boxes but
         // directly as changes of position and size of the player object.
+
+
+        public bool PlatformCollision(Actor A, Objects.BoundingBox B)
+        {
+            bool isColliding =
+                A.Position.Y + A.Size.Y >= B.Y &&
+                A.Position.Y <= B.Y + B.Height &&
+                A.Position.X <= B.X + B.Width &&
+                A.Position.X + A.Size.X >= B.X;
+            if (isColliding)
+            {
+                return true;
+            }
+            return false;
+        }
         public bool Collision(Actor A, Objects.BoundingBox B)
         {
             bool isColliding =
-                A.Position.Y + A.Size.Y  >= B.Y &&
+                A.Position.Y + A.Size.Y >= B.Y &&
                 A.Position.Y <= B.Y + B.Height &&
                 A.Position.X <= B.X + B.Width &&
                 A.Position.X + A.Size.X >= B.X;
@@ -43,7 +58,7 @@ namespace Starfall.Physics
         }
         public void HorizontalCollision(Player actor, List<Objects.BoundingBox> solid)
         {
-            for(int i = 0; i < solid.Count; i++)
+            for (int i = 0; i < solid.Count; i++)
             {
                 areWeInCollision = false;
                 if (Collision(actor, solid[i]))
@@ -62,9 +77,9 @@ namespace Starfall.Physics
                         break;
                     }
                 }
-            }  
+            }
         }
-        public void VerticalCollision(Player actor, List<Objects.BoundingBox> solid)
+        public void VerticalCollision(Player actor, List<Objects.BoundingBox> solid, List<Objects.BoundingBox> Platform)
         {
             for (int i = 0; i < solid.Count; i++)
             {
@@ -88,22 +103,59 @@ namespace Starfall.Physics
                     }
                 }
             }
+
+
+            //Platform
+            for (int i = 0; i < Platform.Count; i++)
+            {
+                areWeInCollision = false;
+                if (PlatformCollision(actor, Platform[i]))
+                {
+                    areWeInCollision = true;
+                    if (actor.isPlatformGrounded = true && InputManager.IsPressed(Keys.S))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        if (actor.Velocity.Y > 0)
+                        {
+                            actor.Velocity.Y = 0;
+                            actor.Position.Y = Platform[i].Y - actor.Size.Y - 0.01f;
+                            actor.isJumping = false;
+                            break;
+                        }
+                    }
+
+                }
+            }
         }
 
-        
 
         #endregion
 
         #region Sensors
 
-        public void checkforGround(Player actor, List<Objects.BoundingBox> solid)
+        public void checkforGround(Player actor, List<Objects.BoundingBox> solid, List<Objects.BoundingBox> Platform)
         {
             actor.isGrounded = false;
-            for(int i = 0; i < solid.Count; i++)
+            actor.isPlatformGrounded = false;
+            for (int i = 0; i < solid.Count; i++)
             {
                 if (tempGroundCheck(actor, solid[i]))
                 {
                     actor.isGrounded = true;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < Platform.Count; i++)
+            {
+                if (tempGroundCheck(actor, Platform[i]))
+                {
+                    actor.isGrounded = true;
+                    actor.isPlatformGrounded = true;
+                    break;
                 }
             }
         }
@@ -113,8 +165,8 @@ namespace Starfall.Physics
             bool tempGroundCheck =
                 actor.Position.Y + actor.Size.Y + (actor.Size.Y / 10) >= Solid.Y &&
                 actor.Position.Y + actor.Size.Y <= Solid.Y + Solid.Height &&
-                actor.Position.X +1f <= Solid.X + Solid.Width &&
-                actor.Position.X + actor.Size.X -1f >= Solid.X;
+                actor.Position.X + 1f <= Solid.X + Solid.Width &&
+                actor.Position.X + actor.Size.X - 1f >= Solid.X;
 
             if (tempGroundCheck)
             {
@@ -125,13 +177,13 @@ namespace Starfall.Physics
 
         public bool WallCheckRight(Player actor, Objects.BoundingBox solid)
         {
-            bool wallCheckRight = 
+            bool wallCheckRight =
                 actor.Position.Y + 1 + actor.Size.Y - 1 >= solid.Y &&
                 actor.Position.Y + 1 <= solid.Y + solid.Height &&
                 actor.Position.X + actor.Size.X <= solid.X + solid.Width &&
                 actor.Position.X + actor.Size.X + 2f >= solid.X;
-            
-            if(wallCheckRight)
+
+            if (wallCheckRight)
             {
                 return true;
             }
@@ -146,7 +198,7 @@ namespace Starfall.Physics
                 actor.Position.X - 2f <= solid.X + solid.Width &&
                 actor.Position.X + 2f >= solid.X;
 
-            if(wallCheckLeft)
+            if (wallCheckLeft)
             {
                 return true;
             }
@@ -163,64 +215,105 @@ namespace Starfall.Physics
             {
                 for (int i = 0; i < Solid.Count; i++)
                 {
-                    if(WallCheckLeft(actor, Solid[i]))
+                    if (WallCheckLeft(actor, Solid[i]))
                     {
                         actor.touchWallLeft = true;
                     }
-                    else if(WallCheckRight(actor, Solid[i]))
+                    else if (WallCheckRight(actor, Solid[i]))
                     {
                         actor.touchWallRight = true;
                     }
                 }
             }
-            
+
+        }
+
+        public void CheckForSpikes(Player actor, List<Objects.BoundingBox> Spike)
+        {
+
+            for (int i = 0; i < Spike.Count; i++)
+            {
+                if (Collision(actor, Spike[i]))
+                {
+                    actor.Position = new Vector2(32, 424);
+                }
+            }
+
+
         }
 
         #endregion
 
+        #region Gravity Functions
         public void Gravity(Player actor)
         {
 
-            // lower gravity at apex of jump for more controll specificly between 0.1 and -0.1 of velocity 
+            if (actor.Velocity.Y >= 6f)
+            {
+                actor.Velocity.Y = 6f;
+            }
+            else if (actor.Velocity.Y <= 0.3f && actor.Velocity.Y >= -0.3f && !actor.isGrounded && actor.isJumping)
+            {
+                JumpApex(actor);
+            }
+            else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.D) && actor.Velocity.Y > 0)
+            {
+                WallSlideGravity(actor);
+            }
+            else if (actor.Velocity.Y > 0)
+            {
+                actor.maxVel = 2.8f;
+                HigherDownGravity(actor);
+            }
+            else
+            {
+                actor.maxVel = 2.8f;
 
-            
-            //Set max fall speed to 9f
-            
-            if (actor.Velocity.Y >= 9f) actor.Velocity.Y = 9f;
-            else if (actor.Velocity.Y <= 0.1f && actor.Velocity.Y >= -0.1f && !actor.isGrounded) actor.Velocity.Y += actor.gravity / 2 * Global.Time;
-            else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.D) && actor.Velocity.Y > 0) actor.Velocity.Y += actor.gravity / 4 * Global.Time;
-            else if (actor.Velocity.Y > 0) actor.Velocity.Y += actor.gravity * 2f * Global.Time; //check if player is moving downwards and if that is the case make gravity larger else normal gravity 
-            else actor.Velocity.Y += actor.gravity * Global.Time;
-            
-
-            //Lerp Gravity
-            /*
-            if (actor.Velocity.Y >= 9f) actor.Velocity.Y = 9f;
-            else if (actor.Velocity.Y <= 0.1f && actor.Velocity.Y >= -0.1f && !actor.isGrounded) actor.Velocity.Y = MathHelper.Lerp(actor.Velocity.Y, 9f, actor.gravity / 3 * Global.Time);
-            else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.D) && actor.Velocity.Y > 0) actor.Velocity.Y = MathHelper.Lerp(actor.Velocity.Y, 3f, actor.gravity / 2 * Global.Time);
-            else if (actor.Velocity.Y > 0) actor.Velocity.Y = MathHelper.Lerp(actor.Velocity.Y, 9f, actor.gravity * 1.5f * Global.Time);
-            else actor.Velocity.Y = MathHelper.Lerp(actor.Velocity.Y, 9f, actor.gravity * Global.Time);
-            */
-
-
-
+                UpwardsGravity(actor);
+            }
 
 
             actor.Position.Y += actor.Velocity.Y;
 
         }
 
+    
+        private void JumpApex(Player actor)
+        {
+            actor.Velocity.Y += actor.gravity / 2 * Global.Time;
+            actor.apex = true;
+            actor.maxVel = 4;
+            
+        }
+
+        private void WallSlideGravity(Player actor)
+        {
+            actor.Velocity.Y = actor.gravity * Global.Time;
+        }
+
+        private void HigherDownGravity(Player actor)
+        {
+            actor.Velocity.Y += actor.gravity * 1.5f * Global.Time; //check if player is moving downwards and if that is the case make gravity larger else normal gravity 
+        }
+
+        private void UpwardsGravity(Player actor)
+        {
+            actor.Velocity.Y += actor.gravity  * Global.Time;
+        }
+        #endregion
+
         // CollisionHandling takes the Collision functions and applies them
-        public void CollisionHandling(Player actor, List<Objects.BoundingBox> solid)
+        public void CollisionHandling(Player actor, List<Objects.BoundingBox> solid, List<Objects.BoundingBox> Spikes, List<Objects.BoundingBox> Platform)
         {
             
             HorizontalCollision(actor, solid);
             Gravity(actor);
-            VerticalCollision(actor, solid);
-            checkforGround(actor, solid);
+            VerticalCollision(actor, solid, Platform);
+            CheckForSpikes(actor, Spikes);
+            checkforGround(actor, solid,Platform);
             CheckForWalls(actor, solid);
 
         }
-
+    
     }
 }

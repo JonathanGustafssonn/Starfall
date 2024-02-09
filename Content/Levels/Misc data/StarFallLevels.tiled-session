@@ -12,15 +12,26 @@
             "scaleInDock": 1.5
         },
         "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 2,
+            "scale": 0.33,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1002,
-                "y": 498
+                "x": 1998.4848484848485,
+                "y": -236.36363636363626
             }
         },
         "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx#VeryUglyGrassTiles": {
-            "scaleInDock": 2
+            "scaleInDock": 1.5
+        },
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level2.tmx": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 461.5,
+                "y": 256
+            }
+        },
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level2.tmx#VeryUglyGrassTiles": {
+            "scaleInDock": 1
         }
     },
     "last.imagePath": "C:/Users/MSI/source/repos/Starfall/Starfall/Content",

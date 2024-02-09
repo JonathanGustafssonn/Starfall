@@ -71,7 +71,7 @@ namespace Starfall
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            gameManager.Draw(rectTexture);
+            gameManager.Draw(rectTexture, gameTime);
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

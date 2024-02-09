@@ -23,6 +23,7 @@ namespace Starfall.Objects
         public Vector2 Velocity;
         public BoundingBox Hitbox;
 
+
         //Intializer for an Actor
         public Actor(Texture2D texture,Vector2 position, Vector2 size, Vector2 velocity)
         {
@@ -31,6 +32,7 @@ namespace Starfall.Objects
             this.Size = size;   
             this.Velocity = velocity;
             this.Center = new Vector2(position.X + size.X / 2,position.Y + size.Y / 2);
+
         }
 
         //Update logic for Actors
@@ -45,10 +47,13 @@ namespace Starfall.Objects
         }
 
         //Drawing logic for Actors
+
+        /*
         public void Draw()
         {
             Global.SpriteBatch.Draw(Texture, Position, null, Color.White);
         }
+        */
 
     }
 }
