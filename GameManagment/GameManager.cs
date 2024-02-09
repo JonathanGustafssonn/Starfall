@@ -32,6 +32,7 @@ namespace Starfall.GameManagment
         private readonly List<Objects.BoundingBox> boundingBoxes;
         private readonly List<Objects.BoundingBox> Spikes;
         private readonly List<Objects.BoundingBox> Platform;
+        private readonly List<Objects.BoundingBox> Collectibles;
 
         
         
@@ -65,6 +66,7 @@ namespace Starfall.GameManagment
             boundingBoxes = new List<Objects.BoundingBox>();
             Spikes = new List<Objects.BoundingBox>();
             Platform = new List<Objects.BoundingBox>();
+            Collectibles = new List<Objects.BoundingBox>();
 
             for (int i = 0; i < map.ObjectGroups["Ground"].Objects.Count; i++)
             {
@@ -87,6 +89,14 @@ namespace Starfall.GameManagment
                 TmxObject platform = map.ObjectGroups["Platform"].Objects[i];
 
                 Platform.Add(new Objects.BoundingBox((float)platform.X, (float)platform.Y, (float)platform.Width, (float)platform.Height));
+            }
+
+            //Initialize Collectibles
+            for (int i = 0; i < map.ObjectGroups["Collectibles"].Objects.Count; i++)
+            {
+                TmxObject platform = map.ObjectGroups["Collectibles"].Objects[i];
+
+                Collectibles.Add(new Objects.BoundingBox((float)Collectibles.X, (float)Collectibles.Y, (float)Collectibles.Width, (float)Collectibles.Height));
             }
             #endregion
 
