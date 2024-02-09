@@ -32,8 +32,8 @@ namespace Starfall.Physics
         {
             bool isColliding =
                 A.Position.Y + A.Size.Y >= B.Y &&
-                A.Position.Y <= B.Y + B.Height &&
-                A.Position.X <= B.X + B.Width &&
+                A.Position.Y - 3 <= B.Y + B.Height &&
+                A.Position.X + 10 <= B.X + B.Width &&
                 A.Position.X + A.Size.X >= B.X;
             if (isColliding)
             {
