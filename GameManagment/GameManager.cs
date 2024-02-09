@@ -45,12 +45,13 @@ namespace Starfall.GameManagment
             Worldsize = new Vector2(640,360);
             effect = Global.Content.Load<SoundEffect>("jump");
             font = Global.Content.Load<SpriteFont>("Font");
-            // 15 41
+            
             player = new(Global.Content.Load<Texture2D>("Player"), new Vector2(165,150), new Vector2(15, 40),new Vector2(0,0));
             player.Hitbox = new Objects.BoundingBox(player.Position.X,player.Position.Y,player.Size.X,player.Size.Y);
             Background = Global.Content.Load<Texture2D>("BackGroundRun");
             collisionHandler = new CollisionHandler();
             gameCamera = new GameCamera();
+        
 
 
             
