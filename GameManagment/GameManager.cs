@@ -127,7 +127,7 @@ namespace Starfall.GameManagment
 
                 Global.SpriteBatch.DrawString(font, "Velocity X  " + player.Velocity.X + "", player.Position + new Vector2(20, 20), Color.Yellow);
 
-                Global.SpriteBatch.DrawString(font, "Score " + player.Score + "", player.Position + new Vector2(0, 0), Color.Yellow);
+                Global.SpriteBatch.DrawString(font, "Score " + player.Score + "", player.Position + new Vector2(0, 0), Color.Green);
 
                 Global.SpriteBatch.DrawString(font, "WallLeft" + player.touchWallLeft + "", new Vector2(0, 80), Color.Red);
 
