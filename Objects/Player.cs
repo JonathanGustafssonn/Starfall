@@ -36,6 +36,7 @@ namespace Starfall.Objects
         public float airMultiplier = 1f;
         public bool isJumping = false;
         public bool isSliding = false;
+	public float Score = 0;
 
         public Vector2D wallJumpVel = new Vector2(350 * Global.Time, -300 * Global.Time);
 
