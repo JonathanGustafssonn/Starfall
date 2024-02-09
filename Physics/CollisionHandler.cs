@@ -238,8 +238,15 @@ namespace Starfall.Physics
                     actor.Position = new Vector2(32, 424);
                 }
             }
+            
+        }
 
-
+        public void CheckForCollectibles(Player actor, List<Objects.BoundingBox> Collectible)
+        {
+            if(collision(actor,Collectible[i]))
+            {
+                Score++;
+            }
         }
 
         #endregion
@@ -310,6 +317,7 @@ namespace Starfall.Physics
             Gravity(actor);
             VerticalCollision(actor, solid, Platform);
             CheckForSpikes(actor, Spikes);
+            CheckForCollectibles(actor, Collectibles);
             checkforGround(actor, solid,Platform);
             CheckForWalls(actor, solid);
 
