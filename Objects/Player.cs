@@ -295,7 +295,7 @@ namespace Starfall.Objects
 
             if(InputManager.IsPressed(Keys.R))
             {
-	            dashTimer = dashTime; 
+	            dashTimer = moveDirection *dashTime; 
             }
 
             
