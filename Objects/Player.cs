@@ -37,13 +37,15 @@ namespace Starfall.Objects
         public bool isJumping = false;
         public bool isSliding = false;
 
+        public Vector2D wallJumpVel = new Vector2(350 * Global.Time, -300 * Global.Time);
 
         
 
         public float slideSpeed = 2f;
         public float gravity = 15f;
        
-
+        public float dashTime = 0.15f;
+        public float dashTimeCounter;
 
         public float coyoteTime = 0.15f;
         public float coyoteTimeCounter;
@@ -59,7 +61,7 @@ namespace Starfall.Objects
 
         public bool touchWallLeft = false;
         public bool touchWallRight = false;
-        public bool hasLeftWall = true; // rename for clarity
+        public bool hasLeftWall = true; // rename for clarity, Probably not needed at all
 
         float lastPressed = 1;
 
@@ -146,21 +148,37 @@ namespace Starfall.Objects
         private void InputHandling(SoundEffect effect)
         {
             
-            //increase maxacc at top of jumpi jumpi
+            //increase max acc at top of jumpi jumpi   
             //maybe tweak air speed (make slower) 
             //lerping for walljumps
-            // ADD THE GOODDAMN DASH
+                    // ADD THE GOODDAMN DASH // one step closer woooohoo
             // edge detection would be good
-            // tweak values for acc to make character less stiff
+            // tweak values for acc to make character less stiff // change decceleration maybe to a third isch of acceleration
+
+
 
             //Currently working on walljumps :) 
 
+            // Different solutions either change values of maxVel or accelRate, can also disable moving for a short while after performing walljump
+            // the previous is though wanted since its the standard in most 2d platformers
+
+
+
+            //Added teporary logic for Dash to see if timer system works as intended
+            //Dash should reset on touching ground
+            // Current dash is reset on press of R activated on E and only moves to the right
+
+            
             InputManager.GetState();
 
             if (isGrounded)
             {
                 coyoteTimeCounter = coyoteTime;
                 isJumping = false;
+                isDashing = false;
+                //Not Both just one, whichever gives the wanted result
+                maxVel = 2.8f;
+                accelRate = 0.18f;
 
             }
             else
@@ -169,6 +187,7 @@ namespace Starfall.Objects
             }
 
 
+            
 
            
                 if (InputManager.IsPressedOnce(Keys.Space))
@@ -269,8 +288,16 @@ namespace Starfall.Objects
 
             if (InputManager.IsPressedOnce(Keys.E))
             {
+                isdashing = true;
                 Dash();
             }
+
+            if(InputManager.IsPressed(Keys.R))
+            {
+	            dashTimer = dashTime; 
+            }
+
+            
             */
 
 
@@ -296,7 +323,7 @@ namespace Starfall.Objects
                 effect.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
 
             }
-            else if(!isGrounded ) //if player isnt grounded instead checks if a walljump can be performed
+            else if(!isGrounded) //if player isnt grounded instead checks if a walljump can be performed
             {
                 if (touchWallLeft && jumpBufferTimeCounter > 0f)
                 {
@@ -326,6 +353,20 @@ namespace Starfall.Objects
 
         private void WallJump()
         {
+
+            if((touchWallRight || touchwallLeft) && !isGrounded &&jumpBufferTimeCounter > 0f)
+            {
+                jumpBufferTimeCounter = 0f;
+                effect.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
+                Velocity.Y = 0;
+                Velocity += new Vector2(wallJumpVel.X * lastPressed, wallJumpVel.Y); //Look over lastPressed possibly bug inducing
+
+                //Change either maxVelocity or Acceleration value to allow movement in opposite direction of wall jump to lesser degree, so either
+                maxVel = 1.2f;
+                accelRate = 0.05f;
+                // either of these should work
+                // reset to default values upon touching ground aka isGrounded
+            }
             
         }
         private void Move()
@@ -351,6 +392,7 @@ namespace Starfall.Objects
 
 
             //If we are currently moving take a moveDirection value between -1 and 1. -1 left, 1 right and apply acceleration based on current velocity to simulate better movement
+            
             if (moveDirection.X == 1 && Velocity.X >= maxVel)
             {
                 Velocity.X = maxVel;
@@ -381,9 +423,17 @@ namespace Starfall.Objects
 
         private void Dash()
         {
+            if(dashTimer > 0)
+            {
+            	//Velocity = dashVel * moveDirection; // use when good system in place for determening moveDirection
+                 Velocity = dashVel * new Vector2(1,0);
+            	dashTime -= Global.Time;
+                 
+            }
 
         }
 
+        //lots of different values
         private void Slide()
         {
             if ((touchWallLeft || touchWallRight) && !isGrounded && Velocity.Y > 0)
