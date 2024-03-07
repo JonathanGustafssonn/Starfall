@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Microsoft.Xna.Framework.Input;
 using Starfall.AnimationManagment;
 using Starfall.GameManagment;
 using Starfall.InputManagment;
 using Starfall.Physics;
-using Starfall.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +17,18 @@ using System.Threading.Tasks;
 
 namespace Starfall.Objects
 {
+    //==========================================
+    // Player, class which contains player logic
+    //==========================================
     public class Player : Actor
     {
-
-
-
 
         //Variables related to player movement
         #region Movement
 
         //Variables directly associated with movement
+        public bool GravityAffectable = true;
+        public bool canMove = true;
         public float speed = 2.5f; //rename to max velocity
         public float maxVel = 2.8f;
         public float accelRate = 0.18f;
@@ -36,17 +38,19 @@ namespace Starfall.Objects
         public float airMultiplier = 1f;
         public bool isJumping = false;
         public bool isSliding = false;
-	public float Score = 0;
+	    public float Score = 0;
 
-        public Vector2D wallJumpVel = new Vector2(350 * Global.Time, -300 * Global.Time);
+        public Vector2 wallJumpVel = new Vector2(350 * Global.Time, -300 * Global.Time);
 
         
 
         public float slideSpeed = 2f;
         public float gravity = 15f;
-       
+
+        public bool canDash = true;
         public float dashTime = 0.15f;
-        public float dashTimeCounter;
+        public float dashTimer = 0.2f;
+        public Vector2 dashVel = new Vector2(15, 15);
 
         public float coyoteTime = 0.15f;
         public float coyoteTimeCounter;
@@ -65,28 +69,13 @@ namespace Starfall.Objects
         public bool hasLeftWall = true; // rename for clarity, Probably not needed at all
 
         float lastPressed = 1;
+        public bool isDashing = false;
 
         //Not sure if these are used at all currently :/
         public bool jumpButtonDown = false;
         public bool normalJump = false;
         public bool apex = false;
         #endregion
-
-
-
-
-
-
-
-        
-        
-        
-        
-        
-        
-        
-
-
         #region Animation And Textures
         private readonly AnimationManager am;
         private readonly AnimationManager am2;
@@ -100,10 +89,9 @@ namespace Starfall.Objects
         private readonly Texture2D ApexFrameRight;
         #endregion
 
-
-
-
-
+        //=====================================================================
+        // Player(), a constructor for the player class loading animation files
+        //=====================================================================
         public Player(Texture2D texture, Vector2 position, Vector2 size, Vector2 velocity) : base(texture,position,size,velocity)
         {
 
@@ -116,67 +104,43 @@ namespace Starfall.Objects
             FallLeft = Global.Content.Load<Texture2D>("FallFrameAlt");
             ApexFrameRight = Global.Content.Load<Texture2D>("ApexFrame");
 
-
-
-
-
             am = new(8, 8, new Vector2(33, 44));
             am2 = new(4, 4, new Vector2(15, 40));
-
-
         }
 
-        public void Update(SoundEffect effect)
+        //=======================================
+        // Update(), Update function for player,
+        // handles mostly movement realted logic
+        //=======================================
+        public void Update(SoundEffect effect, GameTime gameTime, SoundEffect dash)
         {
-
             #region Player Controller
 
-
-
-            
-            InputHandling(effect);
-
-
-            
-
-
-
-
+            InputHandling(effect,gameTime,dash);
             Position.X += Velocity.X;
+
             #endregion
         }
 
-        private void InputHandling(SoundEffect effect)
+
+        //==================================
+        // InputHandling(), a function which
+        // compiles all logic related
+        // to movement.
+        //==================================
+        private void InputHandling(SoundEffect effect,GameTime gameTime, SoundEffect dash)
         {
-            
-            //increase max acc at top of jumpi jumpi   
-            //maybe tweak air speed (make slower) 
-            //lerping for walljumps
-                    // ADD THE GOODDAMN DASH // one step closer woooohoo
-            // edge detection would be good
-            // tweak values for acc to make character less stiff // change decceleration maybe to a third isch of acceleration
-
-
-
-            //Currently working on walljumps :) 
-
-            // Different solutions either change values of maxVel or accelRate, can also disable moving for a short while after performing walljump
-            // the previous is though wanted since its the standard in most 2d platformers
-
-
-
-            //Added teporary logic for Dash to see if timer system works as intended
-            //Dash should reset on touching ground
-            // Current dash is reset on press of R activated on E and only moves to the right
-
             
             InputManager.GetState();
 
+            #region JumpLogic
+
+            //Checks if player is grounded or in coyoteTime threshold, if true lets player Jump
             if (isGrounded)
             {
                 coyoteTimeCounter = coyoteTime;
                 isJumping = false;
-                isDashing = false;
+                canDash = true;
                 //Not Both just one, whichever gives the wanted result
                 maxVel = 2.8f;
                 accelRate = 0.18f;
@@ -187,131 +151,93 @@ namespace Starfall.Objects
                 coyoteTimeCounter -= Global.Time;
             }
 
+            //Checks if player presses the jump button while in the air, if it is pressed
+            //within a certain threshold before  hitting the ground it automatically jumps when landing
 
-            
+            if (InputManager.IsPressedOnce(Keys.Space))
+            {
+                isJumping = true;
+                jumpBufferTimeCounter = jumpBufferTime;
 
-           
-                if (InputManager.IsPressedOnce(Keys.Space))
-                {
-                    isJumping = true;
-                    jumpBufferTimeCounter = jumpBufferTime;
-
-                }
-                else
-                {
+            }
+            else
+            {
 
                 jumpBufferTimeCounter -= Global.Time;
+            }
+
+
+
+            if (canMove)
+            {
+                
+                //Calls OnJumpPressed and performs a Jump
+                OnJumpPressed(effect);
+
+                #endregion
+
+
+                //================================================
+                //Movement Code responsible for movement in X axis
+                //================================================
+
+                CheckDirection();
+
+                if (InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A)) //Checks if D is pressed if true moves to the right and updates animations
+                {
+                    am.Update(1f);
+                    lastPressed = 1;
+                    //moveDirection.X = 1;
+                    Move();
+                }
+                if (InputManager.IsPressed(Keys.A) && !InputManager.IsPressed(Keys.D))//Checks if A is pressed if true moves to the left and updates animations
+                {
+                    am.Update(1f);
+                    lastPressed = -1;
+                    //moveDirection.X = -1;
+                    Move();
+                }
+                if (InputManager.IsPressed(Keys.A) && InputManager.IsPressed(Keys.D)) //Checks if D and A are pressed if true decelerates to a stop and updates animations 
+                {
+                    OnLeftAndRightPressed();
+                    am2.Update(10f);
+                }
+                if (!InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A)) //Checks if neither D or A are pressed if true decelerates to a stop and updates animations 
+                {
+                    am2.Update(10f);
+                
+                    Move();
                 }
 
 
-
-
-           // Slide();
-
-            OnJumpPressed(effect);
-
-
-            //Movement Code responsible for movement in X axis >:)
-
-            if (InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A))
-            {
-                am.Update(1f);
-                lastPressed = 1;
-                moveDirection.X = 1;
-                Move();
-            }
-            if (InputManager.IsPressed(Keys.A) && !InputManager.IsPressed(Keys.D))
-            {
-                am.Update(1f);
-                lastPressed = -1;
-                moveDirection.X = -1;
-                Move();
-            }
-            if (InputManager.IsPressed(Keys.A) && InputManager.IsPressed(Keys.D))
-            {
-                OnLeftAndRightPreessed();
-                am2.Update(10f);
-            }
-            if (!InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A))
-            {
-                am2.Update(10f);
-                moveDirection.X = 0;
-                Move();
-
+                //Dash logic currently work in progress
+                if (InputManager.IsPressedOnce(Keys.E) && canDash && !isDashing) 
+                {
+                    dash.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
+                    isDashing = true;
+                    canMove = false;
+                    GravityAffectable = false;
+                }
             }
 
-
-
-
-            /*
-            if (InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A))
+            if (InputManager.IsPressedOnce(Keys.R))
             {
-                am.Update(1f);
-                lastPressed = 0;
-                moveDirection.X = 1;
-
-                Move();
-            }
-            if (InputManager.IsPressed(Keys.A) && !InputManager.IsPressed(Keys.D))
-            {
-                am.Update(1);
-                lastPressed = 1;
-                moveDirection.X = -1;
-                Move();
+                canDash = true;
             }
 
-            else if (InputManager.IsPressed(Keys.D) && InputManager.IsPressed(Keys.A))
-            {
-                OnLeftAndRightPreessed();
-                am2.Update(10f);
-            }
-
-            if(Keyboard.GetState().IsKeyUp(Keys.D))
-            {
-               // moveDirection.X = -1;
-               // Decelerate();
-                
-
-            }
-            if (Keyboard.GetState().IsKeyUp(Keys.A))
-            {
-              //  moveDirection.X = 1;
-              //  Decelerate();
-
-            }
-
-            if (Keyboard.GetState().IsKeyUp(Keys.A) && Keyboard.GetState().IsKeyUp(Keys.D))
-            {
-                am2.Update(10f);
-            }
-
-
-
-            if (InputManager.IsPressedOnce(Keys.E))
-            {
-                isdashing = true;
-                Dash();
-            }
-
-            if(InputManager.IsPressed(Keys.R))
-            {
-	            dashTimer = moveDirection *dashTime; 
-            }
-
+            Dash();
             
-            */
+            
 
 
 
         }
+
+        //=================================================================================//
+        //  OnJumpPressed handles actions which takes place when the jump button is pressed//
+        //=================================================================================//
         private void OnJumpPressed(SoundEffect effect)
         {
-            
-            //=================================================================================//
-            //  OnJumpPressed handles actions which takes place when the jump button is pressed//
-            //=================================================================================//
-
-
             //Checks if player is grounded if true performs a normal jump
             if (coyoteTimeCounter > 0f && jumpBufferTimeCounter > 0f )
             {
@@ -319,7 +245,7 @@ namespace Starfall.Objects
                 coyoteTimeCounter = 0f;
                 jumpBufferTimeCounter = 0f;
                 Velocity.Y = 0f;
-                Velocity.Y = -300f * Global.Time;
+                Velocity.Y = -320f * Global.Time;
                 
                 effect.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
 
@@ -342,7 +268,12 @@ namespace Starfall.Objects
                 }
             }
         }
-        private void OnLeftAndRightPreessed()
+
+        //============================================
+        // OnLeftAndRightPressed(), Function which
+        // decelaretes player if both keys are pressed
+        //============================================
+        private void OnLeftAndRightPressed()
         {
             Velocity.X *= 0.75f;
 
@@ -352,15 +283,19 @@ namespace Starfall.Objects
             }
         }
 
-        private void WallJump()
+        //========================================================
+        // WallJump(), function called when able
+        // to perform a walljump, currently not working as intended
+        //========================================================
+        private void WallJump(SoundEffect effect)
         {
 
-            if((touchWallRight || touchwallLeft) && !isGrounded &&jumpBufferTimeCounter > 0f)
+            if((touchWallRight || touchWallLeft) && !isGrounded &&jumpBufferTimeCounter > 0f)
             {
                 jumpBufferTimeCounter = 0f;
                 effect.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
                 Velocity.Y = 0;
-                Velocity += new Vector2(wallJumpVel.X * lastPressed, wallJumpVel.Y); //Look over lastPressed possibly bug inducing
+                Velocity += new Vector2(wallJumpVel.X * -lastPressed, wallJumpVel.Y); //Look over lastPressed possibly bug inducing
 
                 //Change either maxVelocity or Acceleration value to allow movement in opposite direction of wall jump to lesser degree, so either
                 maxVel = 1.2f;
@@ -370,14 +305,15 @@ namespace Starfall.Objects
             }
             
         }
+
+        //=======================================================================//
+        // Move() contains most of the logic related to movement in the X axis   //
+        // such as acceleration, turning, deceleration                           //
+        // MaxVel not working accordingly check why?                             //
+        //=======================================================================//
         private void Move()
         {
-            //=======================================================================//
-            // Move() contains most of the logic related to movement in the X axis   //
-            // such as acceleration, turning, deceleration                           //
-            //=======================================================================//
-
-
+            
             //If the player is currently not moving aka if moveDirection vector is zero in x axis, we apply a deceleration
             if (moveDirection.X == 0)
             {
@@ -393,15 +329,14 @@ namespace Starfall.Objects
 
 
             //If we are currently moving take a moveDirection value between -1 and 1. -1 left, 1 right and apply acceleration based on current velocity to simulate better movement
-            
-            if (moveDirection.X == 1 && Velocity.X >= maxVel)
+
+            if (moveDirection.X == 1 && Velocity.X >= maxVel && !isDashing)
             {
                 Velocity.X = maxVel;
             }
-            else if (moveDirection.X == -1 && Velocity.X <= -maxVel)
+            else if (moveDirection.X == -1 && Velocity.X <= -maxVel && !isDashing)
             {
                 Velocity.X = -maxVel;
-
             }
             else
             {
@@ -419,36 +354,96 @@ namespace Starfall.Objects
                     Velocity.X += movement;
                 }
             }
-            
+
+
         }
 
-        private void Dash()
+        private void CheckDirection()
         {
-            if(dashTimer > 0)
+            if (InputManager.IsPressed(Keys.D))
             {
-            	//Velocity = dashVel * moveDirection; // use when good system in place for determening moveDirection
-                 Velocity = dashVel * new Vector2(1,0);
-            	dashTime -= Global.Time;
-                 
+                moveDirection.X = 1;
+            }
+            else if (InputManager.IsPressed(Keys.A))
+            {
+                moveDirection.X = -1;
+            }
+            else if (!InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A))
+            {
+                moveDirection.X = 0;
+            }
+            if (InputManager.IsPressed(Keys.S))
+            {
+                moveDirection.Y = 1;
+            }
+            else if (InputManager.IsPressed(Keys.W))
+            {
+                moveDirection.Y = -1;
+            }
+            else if (!InputManager.IsPressed(Keys.W) && !InputManager.IsPressed(Keys.S))
+            {
+                moveDirection.Y = 0;
             }
 
         }
 
-        //lots of different values
+
+
+
+
+
+        //=======================================
+        // Dash(), Function responsible for logic
+        // performed when doing a dash
+        //=======================================
+        private void Dash()
+        {
+            
+
+            if (isDashing)
+            {
+                
+                //Should move in direction of moveDirection
+                Vector2 normalizedVector = Vector2.Normalize((moveDirection));
+
+                Velocity = normalizedVector * new Vector2(6f, 6f);
+                
+                
+
+                dashTimer -= Global.Time;
+                if(dashTimer <= 0)
+                {
+                    isDashing = false;
+                    dashTimer = 0.2f;
+                    canDash = false;
+                    canMove = true;
+                    GravityAffectable = true;
+
+                }
+            }
+
+        }
+
+        //==================================================
+        // Slide(), function responsible for WallSlide logic
+        //==================================================
         private void Slide()
         {
             if ((touchWallLeft || touchWallRight) && !isGrounded && Velocity.Y > 0)
             {
                 isSliding = true;
-                //Velocity.Y = 
             }
             else
             {
                 isSliding = false;
-
             }
 
         }
+
+        //================================================================
+        // Draw(), draw fucntion for player class,
+        // mostly contains animation conditions
+        //================================================================
         public void Draw()
         {
 

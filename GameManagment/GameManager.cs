@@ -18,57 +18,116 @@ using TiledSharp;
 
 namespace Starfall.GameManagment
 {
+    //=================================================================
+    // GameManager is the class containg all logic related to the game
+    // things like, menus, levels, gameloops, etc.
+    //
+    //=================================================================
     public class GameManager
     {
-        public Vector2 Worldsize;
-        private readonly SpriteFont font;
-        private readonly TmxMap map;
-        private readonly GameCamera gameCamera;
-        private readonly MapLoader maploader;
-        private readonly Player player;
-        private readonly CollisionHandler collisionHandler;
-        private readonly Texture2D Background;
-        public SoundEffect effect;
-        private readonly List<Objects.BoundingBox> boundingBoxes;
-        private readonly List<Objects.BoundingBox> Spikes;
-        private readonly List<Objects.BoundingBox> Platform;
-        private readonly List<Objects.BoundingBox> Collectibles;
+        #region GameInstanceLogic
 
-        
-        
+        static  SpriteFont font;
+        static  TmxMap map;
+        static GameCamera gameCamera;
+        static MapLoader maploader;
+        static Player player;
+        static CollisionHandler collisionHandler;
+        static Texture2D Background;
+        static SoundEffect effect;
+        static SoundEffect dash;
+        static SoundEffect uiChoice;
+        static SoundEffect uiFlip;
+
+        static Texture2D instructionJump;
+
+        static Menu menu;
+        static Texture2D menuSprite;
+        static Vector2 menuPos;
+
+        #region LevelLogic
+
+        static Vector2 Worldsize;
+        static  List<Objects.BoundingBox> boundingBoxes;
+        static List<Objects.BoundingBox> Spikes;
+        static List<Objects.BoundingBox> Platform;
+        static List<Objects.BoundingBox> Collectibles;
+
+        #endregion
+
+        #endregion
+
+        //Used to determine currentState of game
+        public enum State { Menu, Run, Quit };
+        public static State currentState;
 
 
-        public GameManager()
+
+        // Add seperate update and draw methods depending on state, fix states in game1 see that everything works :) 
+        public static void Initialize()
         {
 
-            #region Initialize
-            Worldsize = new Vector2(640,360);
-            effect = Global.Content.Load<SoundEffect>("jump");
-            font = Global.Content.Load<SpriteFont>("Font");
+
+            //Types of different game objects
+            boundingBoxes = new List<Objects.BoundingBox>();
+            Spikes = new List<Objects.BoundingBox>();
+            Platform = new List<Objects.BoundingBox>();
+            Collectibles = new List<Objects.BoundingBox>();
+        }
+        public static void LoadContent(GameWindow window)
+        {
             
-            player = new(Global.Content.Load<Texture2D>("Player"), new Vector2(165,150), new Vector2(15, 40),new Vector2(0,0));
-            player.Hitbox = new Objects.BoundingBox(player.Position.X,player.Position.Y,player.Size.X,player.Size.Y);
+
+            //Code for correctly setting size of game and loading background images
+            Worldsize = new Vector2(480, 270);
             Background = Global.Content.Load<Texture2D>("BackGroundRun");
-            collisionHandler = new CollisionHandler();
+
+            //Code for Menu
+            menuSprite = Global.Content.Load<Texture2D>("TempMenuBackground");
+            menuPos.X = 0;
+            menuPos.Y = 0;
+
+
+
+
+            menu = new Menu((int)State.Menu);
+            menu.AddItem(window, Global.Content.Load<Texture2D>("TempMenuButton"), (int)State.Menu);
+            menu.AddItem(window, Global.Content.Load<Texture2D>("TempMenuButton"),(int)State.Run);
+            menu.AddItem(window, Global.Content.Load<Texture2D>("TempMenuButton"), (int)State.Quit);
+
+
+
+            //Code for loading SFX
+            effect = Global.Content.Load<SoundEffect>("jump");
+            dash = Global.Content.Load<SoundEffect>("dash");
+            uiChoice = Global.Content.Load<SoundEffect>("start");
+            uiFlip = Global.Content.Load<SoundEffect>("switch");
+
+            //Code for loading Fonts
+            font = Global.Content.Load<SpriteFont>("Font");
+
+            //Code for loading player variables
+            player = new(Global.Content.Load<Texture2D>("Player"), new Vector2(165, 150), new Vector2(15, 40), new Vector2(0, 0));
+            player.Hitbox = new Objects.BoundingBox(player.Position.X, player.Position.Y, player.Size.X, player.Size.Y);
+
+            //Code for loading gameCamera
             gameCamera = new GameCamera();
-        
 
+            //Code for loading Collision
+            collisionHandler = new CollisionHandler();
 
-            
+            //Code for loading mapLoader
+            instructionJump = Global.Content.Load<Texture2D>("instructionJump");
 
-            map = new TmxMap("Content/Levels/Actual Levels/Level2.tmx");
+            map = new TmxMap("Content/Levels/Actual Levels/Level1-Room3.tmx");
             var Tileset = Global.Content.Load<Texture2D>("" + map.Tilesets[0].Name.ToString());
             var tileWidth = map.Tilesets[0].TileWidth;
             var tileHeight = map.Tilesets[0].TileHeight;
             var TileSetTilesWide = Tileset.Width / tileWidth;
             maploader = new MapLoader(map, Tileset, TileSetTilesWide, tileWidth, tileHeight);
 
-            //initialize Map BoundingBoxes
-            boundingBoxes = new List<Objects.BoundingBox>();
-            Spikes = new List<Objects.BoundingBox>();
-            Platform = new List<Objects.BoundingBox>();
-            Collectibles = new List<Objects.BoundingBox>();
-
+            //Code for loading every instance of objects in game world
+            #region MapObjectInstances
             for (int i = 0; i < map.ObjectGroups["Ground"].Objects.Count; i++)
             {
                 TmxObject o = map.ObjectGroups["Ground"].Objects[i];
@@ -95,39 +154,41 @@ namespace Starfall.GameManagment
             //Initialize Collectibles
             for (int i = 0; i < map.ObjectGroups["Collectibles"].Objects.Count; i++)
             {
-                TmxObject platform = map.ObjectGroups["Collectibles"].Objects[i];
+                TmxObject Collectible = map.ObjectGroups["Collectibles"].Objects[i];
 
-                Collectibles.Add(new Objects.BoundingBox((float)Collectibles.X, (float)Collectibles.Y, (float)Collectibles.Width, (float)Collectibles.Height));
+                Collectibles.Add(new Objects.BoundingBox((float)Collectible.X, (float)Collectible.Y, (float)Collectible.Width, (float)Collectible.Height));
             }
             #endregion
-
         }
-        public void Update()
+
+        public static State RunUpdate(GameTime gameTime)
         {
-            
             gameCamera.CalculateView(player, Worldsize, maploader);
-            InputManager.Update(player, effect);
-            player.Update(effect);                    
-            collisionHandler.CollisionHandling(player, boundingBoxes, Spikes, Platform);         
+            player.Update(effect,gameTime,dash);
+            collisionHandler.CollisionHandling(player, boundingBoxes, Spikes, Platform, Collectibles);
+
+            return State.Run;
         }
 
-        public void Draw(Texture2D rectTexture, GameTime gameTime)
+        public static void RunDraw()
         {
-            Global.SpriteBatch.Begin(blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp,transformMatrix: gameCamera.gameView);
+            Global.SpriteBatch.Begin(blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp, transformMatrix: gameCamera.gameView);
 
             maploader.Draw();
-
-           // Global.SpriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
+                Global.SpriteBatch.Draw(instructionJump, new Vector2(208, 208), Color.White);
+            // Global.SpriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
             player.Draw();
             // Global.SpriteBatch.Draw(Background, new Vector2(player.Hitbox.X, player.Hitbox.Y) ,null, Color.Green,0f, Vector2.Zero, new Vector2(player.Size.X / Background.Width,player.Size.Y / Background.Height), SpriteEffects.None, 0f);
             //Global.SpriteBatch.Draw(rectTexture, new Rectangle((int)player.Position.X, (int)(player.Position.Y + player.Size.Y), (int)player.Size.X, 6), Color.Red);
-            foreach(Objects.BoundingBox box in boundingBoxes)
+            foreach (Objects.BoundingBox box in boundingBoxes)
             {
-                Global.SpriteBatch.DrawString(font, "Velocity Y" + player.Velocity.Y+ "", player.Position + new Vector2(10,10), Color.Red);
+                
+
+                Global.SpriteBatch.DrawString(font, "Velocity Y" + player.Velocity.Y + "", player.Position + new Vector2(10, 10), Color.Red);
 
                 Global.SpriteBatch.DrawString(font, "Velocity X  " + player.Velocity.X + "", player.Position + new Vector2(20, 20), Color.Yellow);
 
-                Global.SpriteBatch.DrawString(font, "Score " + player.Score + "", player.Position + new Vector2(0, 0), Color.Green);
+                Global.SpriteBatch.DrawString(font, "MoveDir " + player.isDashing + "", player.Position + new Vector2(0, 0), Color.Green);
 
                 Global.SpriteBatch.DrawString(font, "WallLeft" + player.touchWallLeft + "", new Vector2(0, 80), Color.Red);
 
@@ -138,6 +199,25 @@ namespace Starfall.GameManagment
 
 
             Global.SpriteBatch.End();
+        }
+
+        public static State MenuUpdate(GameTime gameTime)
+        {
+            gameCamera.CalculateMenuView();
+            return (State)menu.Update(gameTime,uiChoice,uiFlip);
+        }
+
+        public static void MenuDraw()
+        {
+            
+            Global.SpriteBatch.Begin(blendState: BlendState.AlphaBlend, samplerState: SamplerState.PointClamp, transformMatrix: gameCamera.gameView); 
+
+
+            Global.SpriteBatch.Draw(menuSprite,menuPos,Color.White);
+            menu.Draw(font);
+
+            Global.SpriteBatch.End();
+            
         }
     }
 }

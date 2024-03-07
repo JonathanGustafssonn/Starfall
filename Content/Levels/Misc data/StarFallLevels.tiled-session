@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx",
+    "activeFile": "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level1-Room3.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "Alla filer (*)",
@@ -11,23 +11,66 @@
         "": {
             "scaleInDock": 1.5
         },
+        "#VeryUglyGrassTiles": {
+            "scaleInDock": 1
+        },
         "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx": {
             "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1998.4848484848485,
-                "y": -236.36363636363626
+                "x": 1598.4848484848485,
+                "y": 319.69696969696975
             }
         },
         "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx#VeryUglyGrassTiles": {
             "scaleInDock": 1.5
         },
-        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level2.tmx": {
-            "scale": 1,
-            "selectedLayer": 3,
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level1-Room1.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1.5,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 461.5,
-                "y": 256
+                "x": 818.3333333333333,
+                "y": 180.66666666666669
+            }
+        },
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level1-Room1.tmx#VeryUglyGrassTiles": {
+            "scaleInDock": 1
+        },
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level1-Room2.tmx": {
+            "expandedObjectLayers": [
+                2,
+                3
+            ],
+            "scale": 1,
+            "selectedLayer": 9,
+            "viewCenter": {
+                "x": 549.5,
+                "y": 432
+            }
+        },
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level1-Room2.tmx#VeryUglyGrassTiles": {
+            "scaleInDock": 1
+        },
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level1-Room3.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 385.66666666666663,
+                "y": 339.33333333333326
+            }
+        },
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level1-Room3.tmx#VeryUglyGrassTiles": {
+            "scaleInDock": 1
+        },
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level2.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 719.75,
+                "y": 359.75
             }
         },
         "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level2.tmx#VeryUglyGrassTiles": {
@@ -35,16 +78,21 @@
         }
     },
     "last.imagePath": "C:/Users/MSI/source/repos/Starfall/Starfall/Content",
+    "map.height": 30,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 60,
     "openFiles": [
-        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx"
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx",
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level2.tmx",
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level1-Room3.tmx"
     ],
     "project": "StarFallLevels.tiled-project",
     "recentFiles": [
-        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx"
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level-1.tmx",
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level2.tmx",
+        "C:/Users/MSI/source/repos/Starfall/Starfall/Content/Levels/Actual Levels/Level1-Room3.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {

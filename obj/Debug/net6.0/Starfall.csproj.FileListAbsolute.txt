@@ -40,3 +40,14 @@ C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\FallFrame.x
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\FallFrameAlt.xnb
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\ApexFrame.xnb
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level2.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\TempMenuBackground.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\TempMenuButton.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\dash.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\start.ogg
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\start.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\switch.ogg
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\switch.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level1-Room1.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level1-Room2.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level1-Room3.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\InstructionJump.xnb

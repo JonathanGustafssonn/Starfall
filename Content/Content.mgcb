@@ -49,6 +49,12 @@
 /processorParam:TextureFormat=Color
 /build:CharacterCube.png
 
+#begin dash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:dash.wav
+
 #begin FallFrame.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -104,6 +110,18 @@
 /processorParam:TextureFormat=Color
 /build:IdleRight.png
 
+#begin InstructionJump.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:InstructionJump.png
+
 #begin jump.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -112,6 +130,15 @@
 
 #begin Levels/Actual Levels/Level-1.tmx
 /copy:Levels/Actual Levels/Level-1.tmx
+
+#begin Levels/Actual Levels/Level1-Room1.tmx
+/copy:Levels/Actual Levels/Level1-Room1.tmx
+
+#begin Levels/Actual Levels/Level1-Room2.tmx
+/copy:Levels/Actual Levels/Level1-Room2.tmx
+
+#begin Levels/Actual Levels/Level1-Room3.tmx
+/copy:Levels/Actual Levels/Level1-Room3.tmx
 
 #begin Levels/Actual Levels/Level2.tmx
 /copy:Levels/Actual Levels/Level2.tmx
@@ -163,6 +190,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpreadSheet-RunAnimation.png
+
+#begin start.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:start.mp3
+
+#begin switch.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:switch.mp3
+
+#begin TempMenuBackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TempMenuBackground.png
+
+#begin TempMenuButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TempMenuButton.png
 
 #begin VeryUglyGrassTiles.png
 /importer:TextureImporter

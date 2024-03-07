@@ -33,7 +33,6 @@ namespace Starfall.InputManagment
 
         static KeyboardState previousState;
 
-        private bool jumpPressedOnce = false;
 
         public static KeyboardState GetState()
         {
@@ -51,10 +50,7 @@ namespace Starfall.InputManagment
         {
             return currentState.IsKeyDown(key) && !previousState.IsKeyDown(key);
         }
-        public static void Update(Player player, SoundEffect effect)
-        {
-
-        }
+  
 
     }
 }

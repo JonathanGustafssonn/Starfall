@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Starfall.GameManagment;
+using System.Collections;
 
 namespace Starfall
 {
@@ -30,8 +31,10 @@ namespace Starfall
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            GameManager.currentState = GameManager.State.Menu;
+            GameManager.Initialize();
             base.Initialize();
+            //Add initializeation logic for GameManager
         }
 
         protected override void LoadContent()
@@ -44,35 +47,62 @@ namespace Starfall
             Global.graphicsDevice = GraphicsDevice;
             Global.Content = Content;
             Global.GameWindow = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            gameManager = new GameManager();
+            GameManager.LoadContent(Window);
+
+            //Add rest of LoadContent logic for GameManager aka GameManager.LoadContent;
             
 
 
 
             Global.SpriteBatch = _spriteBatch;
-            // TODO: use this.Content to load your game content here
 
         }
 
         protected override void Update(GameTime gameTime)
         {
+            //Add State switching for Menu, Run, Exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here
 
             Global.Update(gameTime);
-            gameManager.Update();
+            switch (GameManager.currentState)
+            {
+                case GameManager.State.Run:
+                    GameManager.currentState = GameManager.RunUpdate(gameTime);
+                    break;
+                case GameManager.State.Menu:
+                    GameManager.currentState = GameManager.MenuUpdate(gameTime);
+                    break;
+                case GameManager.State.Quit:
+                    this.Exit();
+                    break;
+                default:
+                    GameManager.currentState = GameManager.MenuUpdate(gameTime);
+                    break;
+            }
             base.Update(gameTime);
             
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            gameManager.Draw(rectTexture, gameTime);
-            // TODO: Add your drawing code here
+            switch (GameManager.currentState)
+            {
+                case GameManager.State.Run:
+                    GameManager.RunDraw();
+                    break;
+                case GameManager.State.Menu:
+                    GameManager.MenuDraw();
+                    break;
+                case GameManager.State.Quit:
+                    this.Exit();
+                    break;
+            }
 
             base.Draw(gameTime);
         }

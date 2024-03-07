@@ -6,6 +6,7 @@ using Starfall.InputManagment;
 using Starfall.Objects;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -235,7 +236,9 @@ namespace Starfall.Physics
             {
                 if (Collision(actor, Spike[i]))
                 {
+                    //send bool value instead change pos and thingies in player code for later
                     actor.Position = new Vector2(32, 424);
+                    
                 }
             }
             
@@ -243,9 +246,12 @@ namespace Starfall.Physics
 
         public void CheckForCollectibles(Player actor, List<Objects.BoundingBox> Collectible)
         {
-            if(collision(actor,Collectible[i]))
+            for (int i = 0; i < Collectible.Count; i++)
             {
-                Score++;
+                if (Collision(actor, Collectible[i]))
+                {
+                    actor.Score++;
+                }
             }
         }
 
@@ -254,32 +260,37 @@ namespace Starfall.Physics
         #region Gravity Functions
         public void Gravity(Player actor)
         {
+            if (actor.GravityAffectable)
+            {
+                
+            
+                if (actor.Velocity.Y >= 6f)
+                {
+                    actor.Velocity.Y = 6f;
+                }
+                else if (actor.Velocity.Y <= 0.3f && actor.Velocity.Y >= -0.3f && !actor.isGrounded && actor.isJumping)
+                {
+                    JumpApex(actor);
+                }
+                else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.D) && actor.Velocity.Y > 0)
+                {
+                    WallSlideGravity(actor);
+                }
+                else if (actor.Velocity.Y > 0)
+                {
+                    actor.maxVel = 2.8f;
+                    HigherDownGravity(actor);
+                }
+                else
+                {
+                    actor.maxVel = 2.8f;
 
-            if (actor.Velocity.Y >= 6f)
-            {
-                actor.Velocity.Y = 6f;
-            }
-            else if (actor.Velocity.Y <= 0.3f && actor.Velocity.Y >= -0.3f && !actor.isGrounded && actor.isJumping)
-            {
-                JumpApex(actor);
-            }
-            else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.D) && actor.Velocity.Y > 0)
-            {
-                WallSlideGravity(actor);
-            }
-            else if (actor.Velocity.Y > 0)
-            {
-                actor.maxVel = 2.8f;
-                HigherDownGravity(actor);
-            }
-            else
-            {
-                actor.maxVel = 2.8f;
-
-                UpwardsGravity(actor);
-            }
+                    UpwardsGravity(actor);
+                }
 
 
+                
+            }
             actor.Position.Y += actor.Velocity.Y;
 
         }
@@ -310,14 +321,14 @@ namespace Starfall.Physics
         #endregion
 
         // CollisionHandling takes the Collision functions and applies them
-        public void CollisionHandling(Player actor, List<Objects.BoundingBox> solid, List<Objects.BoundingBox> Spikes, List<Objects.BoundingBox> Platform)
+        public void CollisionHandling(Player actor, List<Objects.BoundingBox> solid, List<Objects.BoundingBox> Spikes, List<Objects.BoundingBox> Platform, List<Objects.BoundingBox> Collectible)
         {
             
             HorizontalCollision(actor, solid);
             Gravity(actor);
             VerticalCollision(actor, solid, Platform);
             CheckForSpikes(actor, Spikes);
-            CheckForCollectibles(actor, Collectibles);
+            CheckForCollectibles(actor, Collectible);
             checkforGround(actor, solid,Platform);
             CheckForWalls(actor, solid);
 

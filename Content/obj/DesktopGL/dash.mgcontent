@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/MSI/source/repos/Starfall/Starfall/Content/dash.wav</SourceFile>
+  <SourceTime>2024-03-04T22:24:37.114963+01:00</SourceTime>
+  <DestFile>C:/Users/MSI/source/repos/Starfall/Starfall/Content/bin/DesktopGL/dash.xnb</DestFile>
+  <DestTime>2024-03-05T01:47:40.1568702+01:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2022-07-26T13:44:56+02:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
