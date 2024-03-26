@@ -29,28 +29,27 @@ namespace Starfall.Objects
         //Variables directly associated with movement
         public bool GravityAffectable = true;
         public bool canMove = true;
-        public float speed = 2.5f; //rename to max velocity
-        public float maxVel = 2.8f;
-        public float accelRate = 0.18f;
+        public float maxVel = 2.4f;
+        public float maxVelBase = 2.4f;
+        public float accelRate = 0.24f;
         public float deccelRate = 0.1f;
         public float maxAirVel;
         public Vector2 moveDirection = Vector2.Zero;
         public float airMultiplier = 1f;
         public bool isJumping = false;
         public bool isSliding = false;
-	    public float Score = 0;
+        public float Score = 0;
 
         public Vector2 wallJumpVel = new Vector2(350 * Global.Time, -300 * Global.Time);
-
-        
-
-        public float slideSpeed = 2f;
         public float gravity = 15f;
 
+
+        public float slideSpeed = 2f;
+
+
         public bool canDash = true;
-        public float dashTime = 0.15f;
-        public float dashTimer = 0.2f;
-        public Vector2 dashVel = new Vector2(15, 15);
+        public float dashTimer = 0.3f;
+        public Vector2 dashVel = new Vector2(15, 15); // should be used
 
         public float coyoteTime = 0.15f;
         public float coyoteTimeCounter;
@@ -68,7 +67,7 @@ namespace Starfall.Objects
         public bool touchWallRight = false;
         public bool hasLeftWall = true; // rename for clarity, Probably not needed at all
 
-        float lastPressed = 1;
+        public float lastPressed = 1;
         public bool isDashing = false;
 
         //Not sure if these are used at all currently :/
@@ -87,12 +86,15 @@ namespace Starfall.Objects
         private readonly Texture2D FallRight;
         private readonly Texture2D FallLeft;
         private readonly Texture2D ApexFrameRight;
+
+        private readonly Texture2D TestCube;
+
         #endregion
 
         //=====================================================================
         // Player(), a constructor for the player class loading animation files
         //=====================================================================
-        public Player(Texture2D texture, Vector2 position, Vector2 size, Vector2 velocity) : base(texture,position,size,velocity)
+        public Player(Texture2D texture, Vector2 position, Vector2 size, Vector2 velocity) : base(texture, position, size, velocity)
         {
 
             RunRight = Global.Content.Load<Texture2D>("SpreadSheet-RunAnimation");
@@ -103,6 +105,7 @@ namespace Starfall.Objects
             FallRight = Global.Content.Load<Texture2D>("FallFrame");
             FallLeft = Global.Content.Load<Texture2D>("FallFrameAlt");
             ApexFrameRight = Global.Content.Load<Texture2D>("ApexFrame");
+            TestCube = Global.Content.Load<Texture2D>("PlayerSprites/TestPlayer3");
 
             am = new(8, 8, new Vector2(33, 44));
             am2 = new(4, 4, new Vector2(15, 40));
@@ -114,12 +117,8 @@ namespace Starfall.Objects
         //=======================================
         public void Update(SoundEffect effect, GameTime gameTime, SoundEffect dash)
         {
-            #region Player Controller
-
-            InputHandling(effect,gameTime,dash);
+            InputHandling(effect, gameTime, dash);
             Position.X += Velocity.X;
-
-            #endregion
         }
 
 
@@ -128,13 +127,73 @@ namespace Starfall.Objects
         // compiles all logic related
         // to movement.
         //==================================
-        private void InputHandling(SoundEffect effect,GameTime gameTime, SoundEffect dash)
+        private void InputHandling(SoundEffect effect, GameTime gameTime, SoundEffect dash)
         {
-            
+
             InputManager.GetState();
 
-            #region JumpLogic
 
+            if (!isDashing)
+            {
+                //Updates timers for Coyote and BufferTime
+                CoyoteAndBuffer();
+
+                //Calls OnJumpPressed and performs a Jump
+                OnJumpPressed(effect);
+
+
+
+
+                //Gets current 2D direction Vector
+                CheckDirection();
+
+
+                if (InputManager.IsPressed(Keys.Right) && !InputManager.IsPressed(Keys.Left)) //Checks if D is pressed if true moves to the right and updates animations
+                {
+                    am.Update(1f);
+                    lastPressed = 1;
+                    Move();
+                }
+                if (InputManager.IsPressed(Keys.Left) && !InputManager.IsPressed(Keys.Right))//Checks if A is pressed if true moves to the left and updates animations
+                {
+                    am.Update(1f);
+                    lastPressed = -1;
+                    Move();
+                }
+                if (InputManager.IsPressed(Keys.Left) && InputManager.IsPressed(Keys.Right)) //Checks if D and A are pressed if true decelerates to a stop and updates animations 
+                {
+
+                    am2.Update(10f);
+                    OnLeftAndRightPressed();
+                }
+                if (!InputManager.IsPressed(Keys.Right) && !InputManager.IsPressed(Keys.Left)) //Checks if neither D or A are pressed if true decelerates to a stop and updates animations 
+                {
+                    am2.Update(10f);
+                    Move();
+                }
+
+                if (InputManager.IsPressedOnce(Keys.X) && canDash && !isDashing)
+                {
+                    dash.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
+                    isDashing = true;
+                    GravityAffectable = false;
+
+                }
+
+            }
+
+            //Dash logic currently work in progress
+            
+           
+            Dash();
+        }
+
+
+        //===================================================
+        // Contains timers for Coyote time and jump buffering
+        //===================================================
+        private void CoyoteAndBuffer()
+        {
             //Checks if player is grounded or in coyoteTime threshold, if true lets player Jump
             if (isGrounded)
             {
@@ -142,9 +201,8 @@ namespace Starfall.Objects
                 isJumping = false;
                 canDash = true;
                 //Not Both just one, whichever gives the wanted result
-                maxVel = 2.8f;
-                accelRate = 0.18f;
-
+                maxVel = maxVelBase;
+                gravity = 15;
             }
             else
             {
@@ -154,7 +212,7 @@ namespace Starfall.Objects
             //Checks if player presses the jump button while in the air, if it is pressed
             //within a certain threshold before  hitting the ground it automatically jumps when landing
 
-            if (InputManager.IsPressedOnce(Keys.Space))
+            if (InputManager.IsPressedOnce(Keys.C))
             {
                 isJumping = true;
                 jumpBufferTimeCounter = jumpBufferTime;
@@ -165,72 +223,14 @@ namespace Starfall.Objects
 
                 jumpBufferTimeCounter -= Global.Time;
             }
-
-
-
-            if (canMove)
-            {
-                
-                //Calls OnJumpPressed and performs a Jump
-                OnJumpPressed(effect);
-
-                #endregion
-
-
-                //================================================
-                //Movement Code responsible for movement in X axis
-                //================================================
-
-                CheckDirection();
-
-                if (InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A)) //Checks if D is pressed if true moves to the right and updates animations
-                {
-                    am.Update(1f);
-                    lastPressed = 1;
-                    //moveDirection.X = 1;
-                    Move();
-                }
-                if (InputManager.IsPressed(Keys.A) && !InputManager.IsPressed(Keys.D))//Checks if A is pressed if true moves to the left and updates animations
-                {
-                    am.Update(1f);
-                    lastPressed = -1;
-                    //moveDirection.X = -1;
-                    Move();
-                }
-                if (InputManager.IsPressed(Keys.A) && InputManager.IsPressed(Keys.D)) //Checks if D and A are pressed if true decelerates to a stop and updates animations 
-                {
-                    OnLeftAndRightPressed();
-                    am2.Update(10f);
-                }
-                if (!InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A)) //Checks if neither D or A are pressed if true decelerates to a stop and updates animations 
-                {
-                    am2.Update(10f);
-                
-                    Move();
-                }
-
-
-                //Dash logic currently work in progress
-                if (InputManager.IsPressedOnce(Keys.E) && canDash && !isDashing) 
-                {
-                    dash.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
-                    isDashing = true;
-                    canMove = false;
-                    GravityAffectable = false;
-                }
-            }
-
-            if (InputManager.IsPressedOnce(Keys.R))
-            {
-                canDash = true;
-            }
-
-            Dash();
             
+            /*
+            if (InputManager.IsReleased(Keys.C))
+            {
+                gravity = gravity * 2;
+            }
+            */
             
-
-
-
         }
 
         //=================================================================================//
@@ -245,7 +245,7 @@ namespace Starfall.Objects
                 coyoteTimeCounter = 0f;
                 jumpBufferTimeCounter = 0f;
                 Velocity.Y = 0f;
-                Velocity.Y = -320f * Global.Time;
+                Velocity.Y = -310f * Global.Time;
                 
                 effect.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
 
@@ -257,14 +257,14 @@ namespace Starfall.Objects
                     jumpBufferTimeCounter = 0f;
                     effect.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
                     Velocity.Y = 0;
-                    Velocity += new Vector2(350 * Global.Time, -300 * Global.Time);
+                    Velocity += new Vector2(350 * Global.Time, -350 * Global.Time);
                 }
                 else if (touchWallRight && jumpBufferTimeCounter > 0f)
                 {
                     jumpBufferTimeCounter = 0f;
                     effect.Play(volume: 0.2f, pitch: 0.0f, pan: 0.0f);
                     Velocity.Y = 0;
-                    Velocity += new Vector2(-350 * Global.Time, -300 * Global.Time);
+                    Velocity += new Vector2(-350 * Global.Time, -350 * Global.Time);
                 }
             }
         }
@@ -313,8 +313,8 @@ namespace Starfall.Objects
         //=======================================================================//
         private void Move()
         {
-            
-            //If the player is currently not moving aka if moveDirection vector is zero in x axis, we apply a deceleration
+          
+            //if moveDirection vector is zero in x axis, we apply a deceleration
             if (moveDirection.X == 0)
             {
                 if (Velocity.X > 0)
@@ -327,20 +327,22 @@ namespace Starfall.Objects
                 }
             }
 
-
-            //If we are currently moving take a moveDirection value between -1 and 1. -1 left, 1 right and apply acceleration based on current velocity to simulate better movement
-
-            if (moveDirection.X == 1 && Velocity.X >= maxVel && !isDashing)
+            //If we are currently moving take a moveDirection value between -1 and 1. -1 left, 1 right and apply acceleration based on current velocity.
+            //currently a problem, clamping velocity to a maxVel screws up the Dash logic, look for a smoother approach,
+            if (moveDirection.X == 1 && Velocity.X >= maxVel && !isDashing) 
             {
                 Velocity.X = maxVel;
+                //Velocity.X = Math.Max(0, Velocity.X - deccelRate);
             }
             else if (moveDirection.X == -1 && Velocity.X <= -maxVel && !isDashing)
             {
                 Velocity.X = -maxVel;
+
+                //Velocity.X = Math.Min(0, Velocity.X + deccelRate);
             }
-            else
+            else //if we are not yet at maxVel
             {
-                //if we arent moving we want to change the velocity of the player while in the air to get a better control scheme trough a airMultiplier.
+                //we want to change the velocity of the player while in the air to get a better control scheme trough a airMultiplier.
                 if (!isGrounded)
                 {
                     float speedDif = moveDirection.X * maxVel - Velocity.X;
@@ -354,43 +356,36 @@ namespace Starfall.Objects
                     Velocity.X += movement;
                 }
             }
-
-
         }
 
         private void CheckDirection()
         {
-            if (InputManager.IsPressed(Keys.D))
+            if (InputManager.IsPressed(Keys.Right))
             {
                 moveDirection.X = 1;
             }
-            else if (InputManager.IsPressed(Keys.A))
+            else if (InputManager.IsPressed(Keys.Left))
             {
                 moveDirection.X = -1;
             }
-            else if (!InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A))
+            else if (!InputManager.IsPressed(Keys.Right) && !InputManager.IsPressed(Keys.Left))
             {
                 moveDirection.X = 0;
             }
-            if (InputManager.IsPressed(Keys.S))
+            if (InputManager.IsPressed(Keys.Down))
             {
                 moveDirection.Y = 1;
             }
-            else if (InputManager.IsPressed(Keys.W))
+            else if (InputManager.IsPressed(Keys.Up))
             {
                 moveDirection.Y = -1;
             }
-            else if (!InputManager.IsPressed(Keys.W) && !InputManager.IsPressed(Keys.S))
+            else if (!InputManager.IsPressed(Keys.Up) && !InputManager.IsPressed(Keys.Down))
             {
                 moveDirection.Y = 0;
             }
 
         }
-
-
-
-
-
 
         //=======================================
         // Dash(), Function responsible for logic
@@ -398,28 +393,26 @@ namespace Starfall.Objects
         //=======================================
         private void Dash()
         {
-            
-
             if (isDashing)
             {
-                
-                //Should move in direction of moveDirection
+                if (moveDirection == new Vector2(0, 0))
+                {
+                    moveDirection.X = lastPressed;
+                }
+
                 Vector2 normalizedVector = Vector2.Normalize((moveDirection));
 
-                Velocity = normalizedVector * new Vector2(6f, 6f);
-                
-                
+                Velocity = normalizedVector * new Vector2(5f, 5f);
 
                 dashTimer -= Global.Time;
-                if(dashTimer <= 0)
+                if (dashTimer <= 0)
                 {
                     isDashing = false;
-                    dashTimer = 0.2f;
+                    dashTimer = 0.3f;
                     canDash = false;
-                    canMove = true;
                     GravityAffectable = true;
-
                 }
+
             }
 
         }
@@ -446,7 +439,7 @@ namespace Starfall.Objects
         //================================================================
         public void Draw()
         {
-
+            
             if (Velocity.Y >= 6 && !isGrounded)
             {
                 if (lastPressed == 1)
@@ -464,12 +457,12 @@ namespace Starfall.Objects
             {
                 Global.SpriteBatch.Draw(ApexFrameRight, new Vector2(Position.X - 7, Position.Y ), null, Color.White);
             }
-            else if (InputManager.IsPressed(Keys.D) && !InputManager.IsPressed(Keys.A))
+            else if (InputManager.IsPressed(Keys.Right) && !InputManager.IsPressed(Keys.Left))
             {
                 am.Draw(RunRight, Position, -13, -3);
 
             }
-            else if (InputManager.IsPressed(Keys.A) && !InputManager.IsPressed(Keys.D))
+            else if (InputManager.IsPressed(Keys.Left) && !InputManager.IsPressed(Keys.Right))
             {
 
                 am.Draw(RunLeft, Position, -5, -3);
@@ -486,6 +479,8 @@ namespace Starfall.Objects
                 }
 
             }
+            
+            //Global.SpriteBatch.Draw(TestCube,new Vector2(Position.X, Position.Y), null, Color.White);
         }
     }
 }

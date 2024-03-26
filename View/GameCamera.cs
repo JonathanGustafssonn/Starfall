@@ -24,14 +24,15 @@ namespace Starfall.View
             float Scale = Math.Min(ScaleX, ScaleY);
 
             // Calculate the position of the camera based on the position of the player
-            float targetPositionX = -player.Position.X * 4 + (Global.GameWindow.X / 2);
-            float targetPositionY = -player.Position.Y * 4 + (Global.GameWindow.Y / 2);
+            float targetPositionX = -player.Position.X * 3 + (Global.GameWindow.X / 2);
+            float targetPositionY = -player.Position.Y * 3 + (Global.GameWindow.Y / 2);
 
             //clamp values as to not go beyond border of the map
             float clampedTargetPositionX = MathHelper.Clamp(targetPositionX, -map.Map.Width * map.TileWidth * Scale + (Global.GameWindow.X ), 0);
-            float clampedTargetPositionY = MathHelper.Clamp(targetPositionY, -map.Map.Height * map.TileHeight * Scale + (Global.GameWindow.Y ), 0);
+            float clampedTargetPositionY = MathHelper.Clamp(targetPositionY, (-map.Map.Height + 0.5f)* map.TileHeight * Scale + (Global.GameWindow.Y), 0);
 
             gameView = Matrix.CreateScale(Scale, Scale, 1) * Matrix.CreateTranslation(clampedTargetPositionX, clampedTargetPositionY, 0);
+
 
         }
 

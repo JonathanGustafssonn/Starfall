@@ -15,15 +15,19 @@ using System.Threading.Tasks;
 
 namespace Starfall.Physics
 {
+    //===================================================================
+    // CollisionHandler, is the class responsible for handling collisions 
+    // between the player and game world. It also contains gravity logic
+    //===================================================================
     public class CollisionHandler
     {
+        //-------------------------------------------------------------------------------------------------
+        // Collision Functions is a region that contains all the separate functions which
+        // make up the collision logic of the game The system in place is so called
+        // Discrete collision detection algorithm.                     
+        //-------------------------------------------------------------------------------------------------
         #region Collision Functions
         public bool areWeInCollision = false;
-
-        //-------------------------------------------------------------------------------------------------//
-        // This Region contains all the separate functions which make up the collision logic of the game.  //
-        // The system in place is so called Discrete collision detection algorithm.                        //
-        //-------------------------------------------------------------------------------------------------//
 
         //Problem Log issue with resolution of collision because of inconsistent position of Player.hitbox :) hitboxes and sensors shouldnt be made as separate boxes but
         // directly as changes of position and size of the player object.
@@ -135,6 +139,9 @@ namespace Starfall.Physics
 
         #endregion
 
+        //-------------------------------------------------------------------------------------
+        // Sensors is a region containing sensor functions that determine when collision occurs
+        //-------------------------------------------------------------------------------------
         #region Sensors
 
         public void checkforGround(Player actor, List<Objects.BoundingBox> solid, List<Objects.BoundingBox> Platform)
@@ -257,33 +264,43 @@ namespace Starfall.Physics
 
         #endregion
 
+        //----------------------------------------------------------------
+        // Gravity Functions is a region containing gravity related logic
+        //----------------------------------------------------------------
         #region Gravity Functions
+
+        //===============================================================
+        // Gravity(), is the main function applying gravity to the player
+        //===============================================================
         public void Gravity(Player actor)
         {
             if (actor.GravityAffectable)
             {
-                
+                if (actor.Velocity.Y !<= 0.2f && actor.Velocity.Y !>= -0.2f )
+                {
+                    actor.apex = false;
+                }
             
                 if (actor.Velocity.Y >= 6f)
                 {
                     actor.Velocity.Y = 6f;
                 }
-                else if (actor.Velocity.Y <= 0.3f && actor.Velocity.Y >= -0.3f && !actor.isGrounded && actor.isJumping)
+                else if (actor.Velocity.Y <= 0.2f && actor.Velocity.Y >= -0.2f && !actor.isGrounded && actor.isJumping)
                 {
                     JumpApex(actor);
                 }
-                else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.A) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.D) && actor.Velocity.Y > 0)
+                else if (actor.touchWallLeft && Keyboard.GetState().IsKeyDown(Keys.Left) && actor.Velocity.Y > 0 || actor.touchWallRight && Keyboard.GetState().IsKeyDown(Keys.Right) && actor.Velocity.Y > 0)
                 {
                     WallSlideGravity(actor);
                 }
                 else if (actor.Velocity.Y > 0)
                 {
-                    actor.maxVel = 2.8f;
+                    actor.maxVel = 3f;
                     HigherDownGravity(actor);
                 }
                 else
                 {
-                    actor.maxVel = 2.8f;
+                    actor.maxVel = 3f;
 
                     UpwardsGravity(actor);
                 }
@@ -292,38 +309,53 @@ namespace Starfall.Physics
                 
             }
             actor.Position.Y += actor.Velocity.Y;
-
-        }
-
-    
-        private void JumpApex(Player actor)
-        {
-            actor.Velocity.Y += actor.gravity / 2 * Global.Time;
-            actor.apex = true;
-            actor.maxVel = 4;
             
         }
 
-        private void WallSlideGravity(Player actor)
+        //=================================================
+        // JumpApex(), determines the gravity on the player
+        // at the apex of the players jump
+        //=================================================
+        private void JumpApex(Player actor)
         {
-            actor.Velocity.Y = actor.gravity * Global.Time;
+            actor.Velocity.Y += actor.gravity / 4f * Global.Time;
+            actor.apex = true;
+            actor.maxVel = 3.4f;
         }
 
+        //=========================================================
+        // WallSlideGravity(), determines the gravity on the player
+        // when the player is wallsliding
+        //=========================================================
+        private void WallSlideGravity(Player actor)
+        {
+            actor.Velocity.Y += actor.gravity * 0.1f * Global.Time;
+        }
+
+        //==============================================================
+        // HigherDownGravity(), increases gravity when player is falling
+        // to get snappier controls
+        //==============================================================
         private void HigherDownGravity(Player actor)
         {
             actor.Velocity.Y += actor.gravity * 1.5f * Global.Time; //check if player is moving downwards and if that is the case make gravity larger else normal gravity 
         }
 
+        //=====================================================================
+        // UpwardsGravity(), sets the gravity when the player is moving upwards
+        //=====================================================================
         private void UpwardsGravity(Player actor)
         {
             actor.Velocity.Y += actor.gravity  * Global.Time;
         }
         #endregion
 
-        // CollisionHandling takes the Collision functions and applies them
+        //======================================================================
+        // CollisionHandling(), it a function which applies all collision logic,
+        // it is called once every gameUpdate
+        //======================================================================
         public void CollisionHandling(Player actor, List<Objects.BoundingBox> solid, List<Objects.BoundingBox> Spikes, List<Objects.BoundingBox> Platform, List<Objects.BoundingBox> Collectible)
         {
-            
             HorizontalCollision(actor, solid);
             Gravity(actor);
             VerticalCollision(actor, solid, Platform);
@@ -331,8 +363,6 @@ namespace Starfall.Physics
             CheckForCollectibles(actor, Collectible);
             checkforGround(actor, solid,Platform);
             CheckForWalls(actor, solid);
-
         }
-    
     }
 }

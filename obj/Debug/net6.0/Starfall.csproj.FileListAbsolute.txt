@@ -51,3 +51,12 @@ C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actu
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level1-Room2.tmx
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level1-Room3.tmx
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\InstructionJump.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\TESTCUBE.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\WeirdAssTileSet.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Test.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\TestPlayer.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\TestPlayer2.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\tile_celeste_main.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Test.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\TestPlayer3.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\DecentGrassTiles.xnb

@@ -10,7 +10,6 @@ namespace Starfall
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private GameManager gameManager;
 
         public Texture2D rectTexture;
         public static int ScreenHeight;
@@ -49,61 +48,30 @@ namespace Starfall
             Global.GameWindow = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             GameManager.LoadContent(Window);
 
-            //Add rest of LoadContent logic for GameManager aka GameManager.LoadContent;
-            
-
-
-
+            //Split GameManager.LoadContent into two different functions one for update one for menu, one for menu can stay here but loadcontent
+            // for run loop should initialize when play is pressed,  that way we can restart, fix date Friday
             Global.SpriteBatch = _spriteBatch;
-
         }
 
         protected override void Update(GameTime gameTime)
         {
             //Add State switching for Menu, Run, Exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+                GameManager.shouldExit = true;
 
             // TODO: Add your update logic here
+            if(GameManager.shouldExit) Exit();
 
             Global.Update(gameTime);
-            switch (GameManager.currentState)
-            {
-                case GameManager.State.Run:
-                    GameManager.currentState = GameManager.RunUpdate(gameTime);
-                    break;
-                case GameManager.State.Menu:
-                    GameManager.currentState = GameManager.MenuUpdate(gameTime);
-                    break;
-                case GameManager.State.Quit:
-                    this.Exit();
-                    break;
-                default:
-                    GameManager.currentState = GameManager.MenuUpdate(gameTime);
-                    break;
-            }
+            GameManager.Update(gameTime);
             base.Update(gameTime);
             
         }
 
         protected override void Draw(GameTime gameTime)
-        {
-            
+        { 
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            switch (GameManager.currentState)
-            {
-                case GameManager.State.Run:
-                    GameManager.RunDraw();
-                    break;
-                case GameManager.State.Menu:
-                    GameManager.MenuDraw();
-                    break;
-                case GameManager.State.Quit:
-                    this.Exit();
-                    break;
-            }
-
+            GameManager.Draw();
             base.Draw(gameTime);
         }
     }

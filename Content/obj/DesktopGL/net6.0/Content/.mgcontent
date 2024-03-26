@@ -8,6 +8,7 @@
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/BackGroundRun.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/CharacterCube.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/dash.wav</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/DecentGrassTiles.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/FallFrame.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/FallFrameAlt.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/File.spritefont</File>
@@ -17,13 +18,20 @@
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/jump.wav</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Player.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerAlt.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/TestPlayer.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/TestPlayer2.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/TestPlayer3.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/RunLeft.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/SpreadSheet-RunAnimation.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/start.mp3</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/switch.mp3</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/TempMenuBackground.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/TempMenuButton.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Test.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/TESTCUBE.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/tile_celeste_main.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/VeryUglyGrassTiles.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/WeirdAssTileSet.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
@@ -32,7 +40,15 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File>Font.spritefont</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -50,7 +50,12 @@ namespace Starfall.InputManagment
         {
             return currentState.IsKeyDown(key) && !previousState.IsKeyDown(key);
         }
-  
+
+        public static bool IsReleased(Keys key)
+        {
+            return currentState.IsKeyUp(key) && previousState.IsKeyDown(key);
+        }
+
 
     }
 }

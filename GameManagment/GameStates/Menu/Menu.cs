@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Starfall.GameManagment
+namespace Starfall.GameManagment.GameStates.Menu
 {
     class MenuItem
     {
@@ -29,7 +29,7 @@ namespace Starfall.GameManagment
         //Get values for MenuItem
 
         public Texture2D Texture { get { return texture; } }
-        public Vector2 Position { get { return position;} }
+        public Vector2 Position { get { return position; } }
         public int State { get { return currentState; } }
 
     }
@@ -59,22 +59,22 @@ namespace Starfall.GameManagment
         {
             //Define height of item
 
-            float X = ((Global.GameWindow.X / 2 / 12) - (itemTexture.Width / 2 )) ;
+            float X = Global.GameWindow.X / 2 / 12 - itemTexture.Width / 2;
 
             float Y = 0 + currentHeight / 12;
-            
+
 
 
 
 
 
             // Change currentHeight every item by a set amount of pixels (20px)
-            currentHeight += itemTexture.Height + (29.2f * 12);
+            currentHeight += itemTexture.Height + 29.2f * 12;
 
             //Create temporary object to add to list
             MenuItem temp = new MenuItem(itemTexture, new Vector2(X, Y), State);
             menu.Add(temp);
-            
+
         }
 
 
@@ -86,9 +86,9 @@ namespace Starfall.GameManagment
         // Will Add for press with mouse later
         //========================================================
 
-        public int Update(GameTime gameTime,SoundEffect choice, SoundEffect flip)
+        public int Update(GameTime gameTime, SoundEffect choice, SoundEffect flip)
         {
-            
+
             float currentTime = Global.Time;
             InputManager.GetState();
             KeyboardState keyBoardState = Keyboard.GetState();
@@ -133,8 +133,6 @@ namespace Starfall.GameManagment
         //=======================
         // Draw(), draws the menu
         //=======================
-
-
         public void Draw(SpriteFont font)
         {
             for (int i = 0; i < menu.Count; i++)
@@ -150,7 +148,5 @@ namespace Starfall.GameManagment
                 }
             }
         }
-        
-
     }
 }
