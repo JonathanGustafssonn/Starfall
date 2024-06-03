@@ -17,6 +17,10 @@ namespace Starfall.GameManagment
         public static GraphicsDevice graphicsDevice { get; set; }
         public static  Point GameWindow { get; set; }
 
+        public static float AudioScale = 0.2f;
+        public static float MusicScale = 0.2f;
+        public static Vector2 Resolution = new Vector2(1920,1080);
+
 
 
         public static void Update(GameTime gameTime)

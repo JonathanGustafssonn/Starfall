@@ -6,9 +6,33 @@
   <SourceFiles>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/ApexFrame.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/BackGroundRun.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Backgrounds/Background1.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Backgrounds/mainMenuBackground.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Backgrounds/MenuBackGround.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Backgrounds/MenuBackGround2.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/Menu.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/AudioOFF.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/AudioON.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/ScreenResolution/1280X720.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/ScreenResolution/1920X1080.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/ScreenResolution/2560X1440.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/ScreenResolution/320X180.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/ScreenResolution/640X360.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/VolumeSlide/Volume0.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/VolumeSlide/Volume100.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/VolumeSlide/Volume20.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/VolumeSlide/Volume40.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/VolumeSlide/Volume60.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/OptionChoices/VolumeSlide/Volume80.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/Options.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/Play.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Buttons/Quit.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/CharacterCube.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Collectibles/EGG.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Collectibles/Star.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/dash.wav</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/DecentGrassTiles.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Fade.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/FallFrame.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/FallFrameAlt.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/File.spritefont</File>
@@ -16,11 +40,28 @@
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/IdleRight.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/InstructionJump.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/jump.wav</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/MusicAndSfx/Free Copyright Music  RFM - NCM  No Copyright  Day After Day - Capturez  8 bit Music.mp3</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/MusicAndSfx/MenuMusic.mp3</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Player.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerAlt.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/BirbGlideLeft.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/BirbGlideRight.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/BirbIdle.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/BirbIdleRight.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/BirbJumpLeft.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/BirbJumpRight.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/BirbWalkLeft.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/BirbWalkRight.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/JumpSprites/JumpSpritesLeft/AccelUpLeft.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/JumpSprites/JumpSpritesLeft/LandingLeft.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/JumpSprites/JumpSpritesRight/AccelUpRight.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/JumpSprites/JumpSpritesRight/LandingRight.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/RunSprites/RunLeft.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/RunSprites/RunRight.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/TestPlayer.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/TestPlayer2.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/TestPlayer3.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/TestPlayerLeft.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/RunLeft.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/SpreadSheet-RunAnimation.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/start.mp3</File>
@@ -30,6 +71,7 @@
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Test.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/TESTCUBE.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/tile_celeste_main.png</File>
+    <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/Tileset.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/VeryUglyGrassTiles.png</File>
     <File>C:/Users/MSI/source/repos/Starfall/Starfall/Content/WeirdAssTileSet.png</File>
   </SourceFiles>
@@ -41,7 +83,49 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File>Font.spritefont</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

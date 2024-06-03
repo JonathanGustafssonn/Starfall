@@ -16,17 +16,15 @@ namespace Starfall.Objects
         //values asociated with a Solid
         public Vector2 Position;
         public Vector2 Size;
-        public Vector2 Origin;
         public Rectangle Hitbox;
 
 
 
         //Intializer for a Solid
-        public Solid(Vector2 position, Vector2 size, Vector2 origin, Rectangle hitbox)
+        public Solid(Vector2 position, Vector2 size, Rectangle hitbox)
         {
             this.Position = position;
             this.Size = size;
-            this.Origin = origin;
             this.Hitbox = hitbox;
         }
 

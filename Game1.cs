@@ -21,8 +21,8 @@ namespace Starfall
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            _graphics.PreferredBackBufferWidth = 1920;
-            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = (int)Global.Resolution.X;
+            _graphics.PreferredBackBufferHeight = (int)Global.Resolution.Y;
             _graphics.IsFullScreen = true;
             Window.AllowUserResizing = true;
         }
@@ -56,12 +56,11 @@ namespace Starfall
         protected override void Update(GameTime gameTime)
         {
             //Add State switching for Menu, Run, Exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 GameManager.shouldExit = true;
-
+            
             // TODO: Add your update logic here
             if(GameManager.shouldExit) Exit();
-
             Global.Update(gameTime);
             GameManager.Update(gameTime);
             base.Update(gameTime);
@@ -70,7 +69,7 @@ namespace Starfall
 
         protected override void Draw(GameTime gameTime)
         { 
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkKhaki);
             GameManager.Draw();
             base.Draw(gameTime);
         }

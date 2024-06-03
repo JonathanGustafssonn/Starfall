@@ -243,8 +243,8 @@ namespace Starfall.Physics
             {
                 if (Collision(actor, Spike[i]))
                 {
-                    //send bool value instead change pos and thingies in player code for later
-                    actor.Position = new Vector2(32, 424);
+                    
+                    actor.Position = actor.spawnPoint;
                     
                 }
             }
@@ -257,6 +257,7 @@ namespace Starfall.Physics
             {
                 if (Collision(actor, Collectible[i]))
                 {
+                    Collectible.Remove(Collectible[i]);
                     actor.Score++;
                 }
             }
@@ -274,18 +275,18 @@ namespace Starfall.Physics
         //===============================================================
         public void Gravity(Player actor)
         {
-            if (actor.GravityAffectable)
+            if (!actor.isGliding)
             {
                 if (actor.Velocity.Y !<= 0.2f && actor.Velocity.Y !>= -0.2f )
                 {
                     actor.apex = false;
                 }
             
-                if (actor.Velocity.Y >= 6f)
+                if (actor.Velocity.Y >= 3f)
                 {
-                    actor.Velocity.Y = 6f;
+                    actor.Velocity.Y = 3f;
                 }
-                else if (actor.Velocity.Y <= 0.2f && actor.Velocity.Y >= -0.2f && !actor.isGrounded && actor.isJumping)
+                else if (actor.Velocity.Y <= 0.1f && actor.Velocity.Y >= -0.1f && !actor.isGrounded && actor.isJumping)
                 {
                     JumpApex(actor);
                 }
@@ -295,12 +296,12 @@ namespace Starfall.Physics
                 }
                 else if (actor.Velocity.Y > 0)
                 {
-                    actor.maxVel = 3f;
+                    actor.maxVel = 1.4f;
                     HigherDownGravity(actor);
                 }
                 else
                 {
-                    actor.maxVel = 3f;
+                    actor.maxVel = 1.4f;
 
                     UpwardsGravity(actor);
                 }
@@ -318,9 +319,9 @@ namespace Starfall.Physics
         //=================================================
         private void JumpApex(Player actor)
         {
-            actor.Velocity.Y += actor.gravity / 4f * Global.Time;
+            actor.Velocity.Y += actor.gravity / 1.2f * Global.Time;
             actor.apex = true;
-            actor.maxVel = 3.4f;
+            actor.maxVel = 1.5f;
         }
 
         //=========================================================
@@ -338,7 +339,7 @@ namespace Starfall.Physics
         //==============================================================
         private void HigherDownGravity(Player actor)
         {
-            actor.Velocity.Y += actor.gravity * 1.5f * Global.Time; //check if player is moving downwards and if that is the case make gravity larger else normal gravity 
+            actor.Velocity.Y += actor.gravity * 2f * Global.Time; //check if player is moving downwards and if that is the case make gravity larger else normal gravity 
         }
 
         //=====================================================================
@@ -354,13 +355,13 @@ namespace Starfall.Physics
         // CollisionHandling(), it a function which applies all collision logic,
         // it is called once every gameUpdate
         //======================================================================
-        public void CollisionHandling(Player actor, List<Objects.BoundingBox> solid, List<Objects.BoundingBox> Spikes, List<Objects.BoundingBox> Platform, List<Objects.BoundingBox> Collectible)
+        public void CollisionHandling(Player actor, List<Objects.BoundingBox> solid, List<Objects.BoundingBox> Spikes, List<Objects.BoundingBox> Platform) //List<Objects.BoundingBox> Collectible
         {
             HorizontalCollision(actor, solid);
             Gravity(actor);
             VerticalCollision(actor, solid, Platform);
             CheckForSpikes(actor, Spikes);
-            CheckForCollectibles(actor, Collectible);
+            //CheckForCollectibles(actor, Collectible); 
             checkforGround(actor, solid,Platform);
             CheckForWalls(actor, solid);
         }

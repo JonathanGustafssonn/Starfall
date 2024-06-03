@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/MSI/source/repos/Starfall/Starfall/Content/PlayerSprites/TestPlayer.png</SourceFile>
-  <SourceTime>2024-03-24T18:01:44.5421224+01:00</SourceTime>
+  <SourceTime>2024-04-02T22:48:47.4837208+02:00</SourceTime>
   <DestFile>C:/Users/MSI/source/repos/Starfall/Starfall/Content/bin/DesktopGL/Content/PlayerSprites/TestPlayer.xnb</DestFile>
-  <DestTime>2024-03-24T18:04:07.4942789+01:00</DestTime>
+  <DestTime>2024-04-02T22:49:23.8301557+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

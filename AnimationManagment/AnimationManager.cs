@@ -23,8 +23,12 @@ namespace Starfall.AnimationManagment
         int colPos;
         public AnimationManager(int numColumns, int numFrames, Vector2 size)
         {
+            //number of vertical columns in file
             this.numColumns = numColumns;
+            //amount of frames for animation aka speed
             this.numFrames = numFrames;
+
+            //Total size of each frame
             this.size = size;
 
             counter = 0;

@@ -56,6 +56,11 @@ namespace Starfall.InputManagment
             return currentState.IsKeyUp(key) && previousState.IsKeyDown(key);
         }
 
+        public static void Reset()
+        {
+            previousState = currentState;
+        }
+
 
     }
 }

@@ -60,3 +60,54 @@ C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\tile_celest
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Test.xnb
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\TestPlayer3.xnb
 C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\DecentGrassTiles.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Collectibles\Star.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\BirbGlideLeft.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\BirbGlideRight.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\BirbIdle.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\BirbWalkLeft.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\BirbWalkRight.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Tileset.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level3.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level4.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Collectibles\EGG.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Backgrounds\Background1.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\BirbIdleRight.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\TestPlayerLeft.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Level5.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Fade.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Backgrounds\MenuBackGround.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\Menu.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\Play.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\Quit.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Backgrounds\mainMenuBackground.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\MusicAndSfx\Free Copyright Music  RFM - NCM  No Copyright  Day After Day - Capturez  8 bit Music.ogg
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\MusicAndSfx\Free Copyright Music  RFM - NCM  No Copyright  Day After Day - Capturez  8 bit Music.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Backgrounds\MenuBackGround2.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\Options.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\AudioON.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\ScreenResolution\1920X1080.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\VolumeSlide\Volume100.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\AudioOFF.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\ScreenResolution\1280X720.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\ScreenResolution\2560X1440.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\ScreenResolution\320X180.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\ScreenResolution\640X360.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\VolumeSlide\Volume0.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\VolumeSlide\Volume20.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\VolumeSlide\Volume40.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\VolumeSlide\Volume60.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Buttons\OptionChoices\VolumeSlide\Volume80.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\MusicAndSfx\MenuMusic.ogg
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\MusicAndSfx\MenuMusic.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\BirbJumpLeft.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\BirbJumpRight.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\JumpSprites\JumpSpritesLeft\AccelUpLeft.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\JumpSprites\JumpSpritesLeft\LandingLeft.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\JumpSprites\JumpSpritesRight\AccelUpRight.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\JumpSprites\JumpSpritesRight\LandingRight.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\RunSprites\RunLeft.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\PlayerSprites\RunSprites\RunRight.xnb
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\tutorial 3.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Tutorial1.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Tutorial2.tmx
+C:\Users\MSI\source\repos\Starfall\Starfall\bin\Debug\net6.0\Content\Levels\Actual Levels\Tutorial3.tmx
